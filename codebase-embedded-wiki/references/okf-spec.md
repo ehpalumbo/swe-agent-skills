@@ -27,21 +27,16 @@ A codebase-embedded wiki lives directly within the repository alongside target m
 │   │   └── overview.md            # OKF Wiki Page (type: architecture)
 │   └── guides/                    # Subdirectory reflecting upper-level wiki section
 │       └── coding-standards.md    # OKF Wiki Page (type: guide)
-└── auth-service/                  # Module: auth-service
+└── <module-name>/                 # e.g., a logical module or service
     ├── README.md                  # Module Scope & Usage (Non-OKF)
     ├── wiki/                      # ALL Module Wiki Pages MUST live inside wiki/ (supports subdirectories)
     │   ├── index.md               # Module Wiki Table of Contents (3 levels deep)
     │   ├── concepts/              # Subdirectory reflecting upper-level wiki section
-    │   │   ├── jwt-strategy.md    # OKF Wiki Page (type: concept)
-    │   │   └── oauth2-flow.md     # OKF Wiki Page (type: concept)
+    │   │   ├── topic-a.md         # OKF Wiki Page (type: concept)
+    │   │   └── topic-b.md         # OKF Wiki Page (type: concept)
     │   └── decisions/             # Subdirectory reflecting upper-level wiki section
     │       └── adr-001.md         # OKF Wiki Page (type: decision-record)
     └── src/                       # Standard source root
-        ├── main/
-        │   ├── java/
-        │   └── resources/
-        └── test/
-            └── java/
 ```
 
 ---
@@ -76,8 +71,8 @@ related:
 | `type` | **Yes** | Enum | Page classification (`architecture`, `decision-record`, `concept`, `guide`). |
 | `title` | **Yes** | String | Descriptive title of the wiki page. |
 | `description` | **Yes** | String | Concise summary (1-2 sentences) of page contents and architectural rationale. |
-| `module` | **Yes** | String | Relative path to the module directory (e.g., `auth-service` or `root`). |
-| `resource` | No | String | Primary code file or directory described (e.g., `auth-service/src/main/java/com/example/auth/JwtService.java`). |
+| `module` | **Yes** | String | Relative path to the module directory (e.g., `<module-name>` or `root`). |
+| `resource` | No | String | Primary code file or directory described (e.g., `<module-name>/src/<path/to/primary/source/file>`). |
 | `tags` | **Yes** | Array | 2 to 5 relevant taxonomy tags for indexing and querying. |
 | `timestamp` | **Yes** | String | ISO-8601 timestamp of last update/creation. |
 | `verified` | No | Boolean | Optional trust signal. `true` if content was explicitly validated against codebase. |
@@ -90,22 +85,21 @@ related:
 
 ```markdown
 ---
-type: concept
-title: "JWT Token Handling & Rotation Strategy"
-description: "Explains high-level token lifecycle, security design rationale, and revocation strategy in the authentication module."
-module: "auth-service"
-resource: "auth-service/src/main/java/com/example/auth/JwtService.java"
+type: <architecture | decision-record | concept | guide>
+title: "<Descriptive page title>"
+description: "<1-2 sentence summary of what this wiki page covers and why it exists.>"
+module: "<relative/path/to/module or 'root'>"
+resource: "<relative/path/to/primary/source/code/file or directory>"
 tags:
-  - auth
-  - jwt
-  - security
-timestamp: "2026-07-31T17:00:00Z"
-stale_after: "2026-10-31T17:00:00Z"
+  - "<tag-1>"
+  - "<tag-2>"
+timestamp: "<YYYY-MM-DDTHH:MM:SSZ>"
+stale_after: "<YYYY-MM-DDTHH:MM:SSZ>"
 related:
-  - "[OAuth2 Flow](oauth2-flow.md)"
+  - "[<Related Page Title>](<relative/path/to/other-wiki-page.md>)"
 ---
 
-# JWT Token Handling & Rotation Strategy
+# <Page Title>
 
 ## Context & Architectural Rationale
 [Explain why this design was chosen, trade-offs considered, and what domain problems it solves.]
@@ -113,14 +107,14 @@ related:
 ## System Mechanics & High-Level Flow
 [Describe how components interact at a high level. Use Mermaid diagrams or conceptual summaries. Do NOT replicate source code logic.]
 
-- **Token Minting**: RSA-256 asymmetric signing is used so downstream services verify tokens using public keys without RPC overhead.
-- **Revocation**: Short-lived (15 min) access tokens minimize window of compromise. Emergency revocation relies on a centralized Redis blacklist.
+- **<Key Component or Concept>**: <High-level description of its role and behavior.>
+- **<Key Component or Concept>**: <High-level description of its role and behavior.>
 
 ## Known Constraints & Trade-offs
-- Redis dependency introduced for immediate token invalidation.
-- Clock skew across nodes must be under 5 seconds.
+- <Constraint or trade-off relevant to the architectural decision.>
+- <Constraint or trade-off relevant to the architectural decision.>
 
 ## Primary Code References
-- Key token manager component: [JwtService.java](../../src/main/java/com/example/auth/JwtService.java#L15)
-- Session blacklist repository: [RefreshTokenRepository.java](../../src/main/java/com/example/auth/RefreshTokenRepository.java#L40)
+- <Description of reference>: [<filename>](<relative/path/to/file.ext>)
+- <Description of reference>: [<filename>](<relative/path/to/file.ext>)
 ```

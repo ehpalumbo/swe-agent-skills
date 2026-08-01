@@ -16,10 +16,10 @@
 ## Standard Module README Template (`<module>/README.md`)
 
 ```markdown
-# Authentication Service (`auth-service`)
+# `<Module Name>`
 
 ## Scope & Purpose
-Concise overview of what this module does, its business boundaries, and key responsibilities (e.g., token issuance, user session management, third-party auth).
+Concise overview of what this module does, its business boundaries, and key responsibilities.
 
 ## Usage & Integration
 How other modules interact with this module, key interfaces exposed, and environment configuration required.

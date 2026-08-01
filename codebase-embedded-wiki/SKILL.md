@@ -96,7 +96,7 @@ Detailed operational procedures and templates are modularized in the `references
 2. **Include 3-Level Deep `index.md`**: Ensure every `wiki/` folder has an `index.md` acting as a 3-level TOC for fast agent discovery.
 3. **Decouple README Files from OKF**: Do not add OKF frontmatter to `README.md` files. Treat READMEs strictly as entry points (scope + usage) that link to `wiki/index.md`.
 4. **Keep `.wiki-meta.json` Minimal**: Store only necessary operational tracking state (`version`, `last_sync_commit`, `last_sync_timestamp`).
-5. **Use Relative Links Exclusively**: Use relative paths for all cross-page links (`[text](page.md)`) and source code references (`[symbol](../../src/main/java/com/example/auth/JwtService.java#L10-L25)`). Avoid absolute `file:///` URLs.
+5. **Use Relative Links Exclusively**: Use relative paths for all cross-page links (`[text](page.md)`) and source code references (`[symbol](../../src/<path/to/file.ext>#L10-L25)`). Avoid absolute `file:///` URLs.
 6. **Isolate Wiki Pages in `wiki/`**: Ensure wiki pages live exclusively inside module `wiki/` subdirectories (`wiki/**/*.md`). Never place wiki Markdown files directly among source code files. When the number of pages grows large, use subdirectories within `wiki/` to reflect the logical organization of the wiki (for upper levels only).
 
 ## References

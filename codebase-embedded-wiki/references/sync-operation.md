@@ -27,7 +27,7 @@ The `sync` operation ensures that the codebase-embedded wiki stays up to date wi
    git diff --name-status <last_sync_commit> HEAD
    ```
 
-2. Parse changed file paths and map them to their corresponding repository modules (e.g., changes to `auth-service/src/main/java/com/example/auth/JwtService.java` map to module `auth-service`).
+2. Parse changed file paths and map them to their corresponding repository modules (e.g., changes to `<module-name>/src/<path/to/file>` map to module `<module-name>`).
 3. If no relevant source files changed, output a message stating that the wiki is already up to date, and update `last_sync_timestamp` in `.wiki-meta.json`.
 
 ### Step 3: Audit High-Level Rationale & Conceptual Impact

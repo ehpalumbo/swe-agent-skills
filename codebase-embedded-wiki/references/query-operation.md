@@ -19,9 +19,9 @@ The `query` operation allows AI agents or developers to navigate the codebase-em
 1. Analyze the user's question or dev task topic.
 2. Extract key domain terms, module names, or architectural concepts.
 3. Determine whether the query is:
-   - **Module-Specific**: e.g., "Why do we use RSA key pairs in `auth-service`?"
-   - **Cross-Cutting / Architectural**: e.g., "What is our event ordering strategy across services?"
-   - **Design Record Inquiry**: e.g., "Why was Redis chosen over Memcached for session revoking?"
+   - **Module-Specific**: e.g., "Why was this design pattern chosen in `<module-name>`?"
+   - **Cross-Cutting / Architectural**: e.g., "What is the event ordering strategy across services?"
+   - **Design Record Inquiry**: e.g., "Why was `<technology-a>` chosen over `<technology-b>` for `<concern>`?"
 
 ### Step 2: Fast-Path Discovery via `wiki/index.md`
 
@@ -40,8 +40,8 @@ The `query` operation allows AI agents or developers to navigate the codebase-em
 1. Formulate a direct, clear answer to the query highlighting **why** design decisions were made and **how** components operate at a high level.
 2. Avoid dumping code blocks or verbatim source code into the response.
 3. Provide relative Markdown links to:
-   - Relevant OKF Wiki pages (e.g., `[JWT Strategy](auth-service/wiki/concepts/jwt-strategy.md)`).
-   - Key source files (e.g., `[JwtService.java](auth-service/src/main/java/com/example/auth/JwtService.java#L15)`).
+   - Relevant OKF Wiki pages (e.g., `[<Page Title>](<module>/wiki/<section>/<page>.md)`).
+   - Key source files (e.g., `[<filename>](<module>/src/<path/to/file>)`).
 
 ---
 
