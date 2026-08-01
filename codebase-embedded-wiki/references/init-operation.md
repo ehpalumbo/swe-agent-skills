@@ -60,7 +60,7 @@ For each identified topic/concept in a module:
    - `timestamp`: Current ISO timestamp.
    - `related`: Markdown links to related OKF pages using relative paths.
 3. Write structured Markdown content detailing context, design rationale, system mechanics (using text or Mermaid diagrams), and trade-offs. Avoid duplicating source code blocks.
-4. Create `<module>/wiki/index.md` acting as a **Table of Contents up to 3 levels deep** (`# Title`, `## Section`, `### Sub-section`) indexing all wiki pages in the directory (including subdirectories) for rapid agent discovery.
+4. Create `<module>/wiki/index.md` acting as a **Table of Contents up to 3 levels deep** indexing all wiki pages in the directory (including subdirectories) for rapid agent discovery.
 
 ### Step 5: Generate Minimal Tracking Manifest (`.wiki-meta.json`) & Global Wiki Index
 

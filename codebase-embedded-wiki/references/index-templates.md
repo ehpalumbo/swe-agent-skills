@@ -1,34 +1,36 @@
 # Wiki Index Templates (`wiki/index.md`)
 
-Every `wiki/` directory MUST contain an `index.md` Table of Contents indexed **up to 3 levels deep** (`# Title`, `## Section`, `### Sub-section`). This allows AI agents to rapidly discover wiki structure without reading individual pages.
+Every `wiki/` directory MUST contain an `index.md` Table of Contents indexed **up to 3 levels deep**. This allows AI agents to rapidly discover wiki structure without reading individual pages. Entries must provide just enough context for an agent to infer when it is relevant to load each file — no more.
 
 > [!IMPORTANT]
-> Subdirectories inside `wiki/` reflect top-level TOC sections. Whenever new wiki pages or major section headers are added or modified, the corresponding `wiki/index.md` must be updated to reflect all current pages and headings.
+> Subdirectories inside `wiki/` reflect top-level TOC sections via Markdown heading levels. Whenever wiki pages or major section headers are added or modified, the corresponding `wiki/index.md` must be updated to stay current.
 
 ---
 
 ## Module Wiki Index Template (`<module>/wiki/index.md`)
 
 ```markdown
-# Module Wiki Table of Contents
+# <Module Name> Wiki
 
-> Quick discovery index for AI agents and developers.
+> Quick discovery index. Load individual pages for full details.
 
-## 1. Architectural Concepts (`type: concept`)
-- **[JWT Token Handling & Rotation Strategy](concepts/jwt-strategy.md)**
-  - Context & Architectural Rationale
-  - System Mechanics & High-Level Flow
-    - Token Minting & Key Distribution
-    - Emergency Revocation Blacklist
-  - Known Constraints & Trade-offs
-- **[OAuth2 Integration Flow](concepts/oauth2-flow.md)**
-  - Provider Abstraction Model
-  - Token Exchange & State Verification
+## <Section> (`<section>/`)
 
-## 2. Architecture & Design Records (`type: decision-record | architecture`)
-- **[ADR-001: Redis for Token Blacklisting](decisions/adr-001-redis-blacklist.md)**
-  - Problem Statement & Evaluation Criteria
-  - Decision Outcome & Impact
+### [<Page Title>](<section>/<page>.md)
+<One-sentence description of what this page covers and when to load it.>
+- <Key heading or sub-topic>
+- <Key heading or sub-topic>
+
+### [<Page Title>](<section>/<page>.md)
+<One-sentence description.>
+- <Key heading or sub-topic>
+
+## <Section> (`<section>/`)
+
+### [<Page Title>](<section>/<page>.md)
+<One-sentence description.>
+- <Key heading or sub-topic>
+- <Key heading or sub-topic>
 ```
 
 ---
@@ -36,20 +38,19 @@ Every `wiki/` directory MUST contain an `index.md` Table of Contents indexed **u
 ## Global Repository Wiki Index Template (`wiki/index.md` at root)
 
 ```markdown
-# Global Repository Wiki Index
+# Repository Wiki
 
-> Repository-wide knowledge base index for architecture, cross-cutting concerns, and module wikis.
+> Cross-cutting knowledge base index. Load individual pages for full details.
 
-## 1. Global Architecture & Standards
-- **[System Architecture Overview](architecture/overview.md)**
-  - High-Level Service Topology
-  - Ingress Router & API Gateway Pattern
-  - Database Sharding & Transaction Model
-- **[Coding Standards & Guidelines](guides/coding-standards.md)**
-  - Error Handling & Logging Standards
-  - Security & Input Sanitization Rules
+## <Section> (`<section>/`)
 
-## 2. Module Wiki Directory
-- **[Auth Module Wiki](../auth-service/wiki/index.md)** — Token handling, OAuth2 workflows, security decisions.
-- **[Billing Module Wiki](../billing-service/wiki/index.md)** — Payment processing, webhook handling, tax calculations.
+### [<Page Title>](<section>/<page>.md)
+<One-sentence description of what this page covers and when to load it.>
+- <Key heading or sub-topic>
+- <Key heading or sub-topic>
+
+## Module Wikis
+
+### [<Module Name>](../<module>/wiki/index.md)
+<One-sentence description of the module's domain and what its wiki covers.>
 ```
