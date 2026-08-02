@@ -9,16 +9,22 @@ The `ingest` operation updates or expands the codebase-embedded wiki using exter
 - Merging or reviewing a Pull Request (PR) that introduces new concepts, architecture, or design decisions.
 - Ingesting a commit range (e.g., `git diff v1.0..v1.2` or feature branch).
 - Incorporating an external text document, RFC, architectural design document, or user notes into the codebase knowledge base.
+- Generating architectural design documentation from the current codebase state.
 
 ---
 
 ## Detailed Step-by-Step Procedure
+
+### Precondition: Bootstrap Wiki Skeleton If Needed
+
+If the codebase has not been bootstrapped, perform the [init operation](init-operation.md) first to ensure the minimal wiki structure exists.
 
 ### Step 1: Parse the Input Source
 
 1. Determine the source type:
    - **Pull Request / Commit Range:** Extract modified files, diffs, PR description, and commit messages using `git log` or `git diff`.
    - **External Document / RFC / Design Doc:** Read the provided file or text.
+   - **Current Codebase State:** Generate an architectural design documentation from the current codebase state.
 2. Identify the target modules affected by the input source based on file paths or domain topics.
 
 ### Step 2: Map Insights to Modules & High-Level Wiki Topics
@@ -47,20 +53,6 @@ The `ingest` operation updates or expands the codebase-embedded wiki using exter
 1. Ensure module `README.md` files are **not** updated with OKF frontmatter.
 2. Verify module `README.md` files contain a link to `wiki/index.md`.
 
-### Step 5: Update Minimal Tracking Manifest (`.wiki-meta.json`)
-
-> See [wiki-meta-schema.md](wiki-meta-schema.md) for the `.wiki-meta.json` schema and example.
-
-1. If operating on git commits or PR merges, update `.wiki-meta.json` at root with the latest git commit SHA and ISO-8601 timestamp:
-
-   ```json
-   {
-     "version": "1.0.0",
-     "last_sync_commit": "<CURRENT_GIT_COMMIT_SHA>",
-     "last_sync_timestamp": "<CURRENT_ISO_8601_TIMESTAMP>"
-   }
-   ```
-
 ---
 
 ## Verification Criteria for `ingest`
@@ -69,4 +61,3 @@ The `ingest` operation updates or expands the codebase-embedded wiki using exter
 - [ ] Technical content reflects high-level architectural rationale (**why/how**) rather than temporary PR chatter or code snippet copies.
 - [ ] `wiki/index.md` in affected directories is updated with a **3-level deep Table of Contents**.
 - [ ] `README.md` files do **not** use OKF frontmatter and link to `wiki/index.md`.
-- [ ] `.wiki-meta.json` is updated with minimal tracking fields (`version`, `last_sync_commit`, `last_sync_timestamp`).

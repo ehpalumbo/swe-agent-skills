@@ -65,9 +65,8 @@ For each affected OKF page:
 
    ```json
    {
-     "version": "1.0.0",
      "last_sync_commit": "<CURRENT_GIT_HEAD_SHA>",
-     "last_sync_timestamp": "<CURRENT_ISO_8601_TIMESTAMP>"
+     "last_sync_at": "<CURRENT_ISO_8601_TIMESTAMP>"
    }
    ```
 

@@ -8,9 +8,8 @@ Stored at the root of the repository, `.wiki-meta.json` records minimal tracking
 
 | Field | Required | Type | Description |
 | :--- | :---: | :--- | :--- |
-| `version` | **Yes** | String | Schema version (currently `"1.0.0"`). |
 | `last_sync_commit` | **Yes** | String | Full 40-character SHA of the last git commit against which the wiki was synchronized. |
-| `last_sync_timestamp` | **Yes** | String | ISO-8601 timestamp of when the last sync was performed. |
+| `last_sync_at` | **Yes** | String | ISO-8601 timestamp of when the last sync was performed. |
 
 ---
 
@@ -18,9 +17,8 @@ Stored at the root of the repository, `.wiki-meta.json` records minimal tracking
 
 ```json
 {
-  "version": "1.0.0",
   "last_sync_commit": "a1b2c3d4e5f67890123456789abcdef012345678",
-  "last_sync_timestamp": "2026-07-31T17:00:00Z"
+  "last_sync_at": "2026-07-31T17:00:00Z"
 }
 ```
 
@@ -29,7 +27,7 @@ Stored at the root of the repository, `.wiki-meta.json` records minimal tracking
 ## Usage Notes
 
 - **Do NOT** add extra fields beyond the three above. The manifest must remain minimal.
-- Update `last_sync_commit` and `last_sync_timestamp` after every `init`, `ingest` (when operating on git commits), or `sync` operation.
+- `last_sync_commit` and `last_sync_at` are only populated when the wiki is synchronized with the codebase (e.g., via ingest or sync).
 - Retrieve the current git HEAD SHA with:
 
   ```bash

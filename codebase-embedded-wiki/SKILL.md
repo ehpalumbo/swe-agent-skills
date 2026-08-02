@@ -30,7 +30,7 @@ A codebase-embedded wiki places documentation in dedicated `wiki/` subdirectorie
 ```text
 <repository-root>/
 ├── README.md                      # Repository Overview (Non-OKF: scope, usage, links to wiki/index.md)
-├── .wiki-meta.json                # Minimal tracking manifest (last_sync_commit, last_sync_timestamp)
+├── .wiki-meta.json                # Minimal tracking manifest for delta-based updates (sync) and linting
 ├── wiki/                          # Global / Cross-Cutting Architecture Wiki Directory
 │   ├── index.md                   # Global Wiki Table of Contents
 │   ├── architecture/              # Subdirectory reflecting upper-level wiki section
@@ -74,7 +74,7 @@ Detailed operational procedures and templates are modularized in the `references
 
 ### 1. `init` — Bootstrap Wiki Structure
 
-- **Trigger**: When initializing the codebase-embedded wiki across an un-documented or newly explored codebase, establishing `wiki/index.md` files and minimal tracking metadata.
+- **Trigger**: When initializing the codebase-embedded wiki for a repository by creating required `wiki/` directories, `wiki/index.md` files, module `README.md` entry points, and minimal tracking metadata.
 - **Procedure**: See [init-operation.md](references/init-operation.md).
 
 ### 2. `ingest` — Ingest PRs, Commits, & External Docs
@@ -102,7 +102,7 @@ Detailed operational procedures and templates are modularized in the `references
 1. **Focus on High-Level Rationale**: Explain *why* design decisions were made and *how* components interact at a high level. Never copy code blocks, function signatures, or verbatim logic into wiki pages.
 2. **Include 3-Level Deep `index.md`**: Ensure every `wiki/` folder has an `index.md` acting as a 3-level TOC for fast agent discovery.
 3. **Decouple README Files from OKF**: Do not add OKF frontmatter to `README.md` files. Treat READMEs strictly as entry points (scope + usage) that link to `wiki/index.md`.
-4. **Keep `.wiki-meta.json` Minimal**: Store only necessary operational tracking state (`version`, `last_sync_commit`, `last_sync_timestamp`).
+4. **Keep `.wiki-meta.json` Minimal**: Store only necessary operational tracking state.
 5. **Use Relative Links Exclusively**: Use relative paths for all cross-page links (`[text](page.md)`) and source code references (`[symbol](../../src/<path/to/file.ext>#L10-L25)`). Avoid absolute `file:///` URLs.
 6. **Isolate Wiki Pages in `wiki/`**: Ensure wiki pages live exclusively inside module `wiki/` subdirectories (`wiki/**/*.md`). Never place wiki Markdown files directly among source code files. When the number of pages grows large, organize them into named subdirectories within `wiki/` (e.g., `concepts/`, `decisions/`, `guides/`), where each subdirectory name mirrors a top-level section heading in `wiki/index.md`.
 

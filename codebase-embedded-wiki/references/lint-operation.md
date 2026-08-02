@@ -16,7 +16,7 @@ The `lint` operation performs a comprehensive health check on the codebase-embed
 
 ### Step 1: Audit Manifest & README Decoupling
 
-1. Check if `.wiki-meta.json` exists at the repository root and contains valid minimal JSON (`version`, `last_sync_commit`, `last_sync_timestamp`).
+1. Check if `.wiki-meta.json` exists at the repository root and contains valid minimal JSON (`last_sync_commit`, `last_sync_timestamp`).
 2. Read `last_sync_commit` from `.wiki-meta.json` and compare it against `git rev-parse HEAD`. If different, report a **Sync Lag Warning**.
 3. Scan repository modules and verify that **NO `README.md` file contains OKF YAML frontmatter**. If any `README.md` has OKF frontmatter, flag as an **Invalid README Format Error**.
 4. Verify that every module `README.md` contains a valid relative link to `wiki/index.md`.
