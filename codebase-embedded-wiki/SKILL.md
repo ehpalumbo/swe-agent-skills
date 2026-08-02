@@ -9,12 +9,18 @@ metadata:
 
 # Codebase-Embedded Wiki
 
-Use this skill to create, maintain, query, and health-check a **codebase-embedded wiki**. A codebase-embedded wiki stores curated, structured knowledge directly inside the repository alongside target modules. Wiki pages are NEVER mixed directly with source files; instead, every project module maintains a module-level `README.md` as an initial entry point, and a separate `wiki/` subdirectory containing an `index.md` Table of Contents alongside OKF-formatted wiki pages (`<module>/wiki/**/*.md`). Subdirectories inside `wiki/` are supported to organize pages, reflecting the wiki levels in the file directory tree (at least for upper levels).
+Use this skill to create, maintain, query, and health-check a **codebase-embedded wiki**.
 
-## Wiki Objective & Philosophy
+## Definition
 
-- **Focus on High-Level Constructs**: The wiki must explain **why** things were done the way they were done (design decisions, trade-offs, architecture) and **how** things work at a high level (system boundaries, data flows, mental models).
-- **Do NOT Clone Code in Markdown**: Agents can always scan source code to learn implementation details, signatures, and syntax. The wiki MUST NOT repeat what is already obvious in the code.
+A codebase-embedded wiki stores curated, structured knowledge directly inside the repository alongside target modules that are meant to complement, not duplicate, implementation-level documentation. It is intended to be consumed by both AI agents and human developers when gathering context for software engineering tasks.
+
+Wiki pages are never mixed directly with source files; instead, each project module has a module-level `README.md` as an initial entry point, and a separate `wiki/` subdirectory containing an `index.md` as a table of contents for the wiki pages that live inside the `wiki/` directory. This structure is repeated recursively for each module, splitting the wiki contents between the global `wiki/` directory for cross-cutting concerns and module-specific `wiki/` directories for module-specific concerns.
+
+## Objective & Philosophy
+
+- **Complementary, Not Redundant**: The wiki MUST complement, not duplicate, implementation-level documentation (e.g., Swagger/OpenAPI specs, Protocol Buffer definitions, JavaDocs or Python docstrings). Agents can always scan source code to learn implementation details, signatures, and syntax. The wiki MUST NOT repeat what is already obvious in the code.
+- **Focus on High-Level Constructs**: The wiki must explain **why** things were done the way they were done (design decisions, trade-offs, constraints, rationale, motivation) and **how** things work at a high level (architecture, patterns, system boundaries, data flows, mental models, workflows).
 - **Persistent Curator Pattern**: Formalizing Andrej Karpathy's [LLM Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f), act as a persistent curator building a compounding, interlinked knowledge graph embedded close to the code.
 
 ## Wiki Architecture & Directory Conventions
@@ -54,12 +60,13 @@ A codebase-embedded wiki places documentation in dedicated `wiki/` subdirectorie
 
 The wiki directory may be organized into the following sections (select what applies to each module/level):
 
-- `architecture/`: High-level architecture decisions, system overview, technology choices, and architectural patterns. This should include high-level rationale for why things are the way they are, not just "what" they are.
+- `specs/`: High-level specifications for the project. This includes things like project goals, functional and non-functional requirements, and other specifications that may not be captured in the codebase itself.
+- `architecture/`: High-level architecture, system overview, technology choices, and architectural patterns. Might be replaced with a single `architecture.md` file for small wikis.
 - `decisions/`: Architecture Decision Records (ADRs). Each ADR should document a significant architectural decision, including the context, the decision made, the trade-offs considered, and the consequences of the decision. ADRs should be atomic and focused on a single decision.
-- `concepts/`: High-level concepts and mental models for understanding the codebase. This includes explanations of key concepts, abstractions, and design patterns used in the codebase.
+- `concepts/`: High-level concepts and mental models for understanding the codebase. This includes explanations of key concepts, abstractions, and design patterns used in the codebase. Might be replaced with a single `concepts.md` file for small wikis.
 - `workflows/`: Document common workflows and patterns for working with the codebase. This includes things like development workflows, testing workflows, and deployment workflows.
 - `guides/`: Practical guides for working with the codebase. This includes things like coding standards, development workflows, and best practices.
-- `references/`: Reference material for working with the codebase. This includes things like API documentation, configuration details, and other reference material.
+- `references/`: Reference material for working with the codebase. This includes things like API documentation, configuration details, and other reference material. Might be replaced with a single `references.md` file for small wikis.
 
 ## Core Operations
 
