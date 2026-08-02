@@ -33,5 +33,5 @@ Use this template to structure the output of a `lint` operation. The report must
 
 ### ℹ️ Recommendations
 - Run `sync` operation to update stale page `auth-service/wiki/concepts/jwt-strategy.md`.
-- Update `billing-service/wiki/index.md` down to 3 heading levels.
+- Update `billing-service/wiki/index.md` to cover up to 3 levels deep.
 ```

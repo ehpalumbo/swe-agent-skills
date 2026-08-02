@@ -64,8 +64,8 @@ The wiki directory may be organized into the following sections (select what app
 - `architecture/`: High-level architecture, system overview, technology choices, and architectural patterns. Might be replaced with a single `architecture.md` file for small wikis.
 - `decisions/`: Architecture Decision Records (ADRs). Each ADR should document a significant architectural decision, including the context, the decision made, the trade-offs considered, and the consequences of the decision. ADRs should be atomic and focused on a single decision.
 - `concepts/`: High-level concepts and mental models for understanding the codebase. This includes explanations of key concepts, abstractions, and design patterns used in the codebase. Might be replaced with a single `concepts.md` file for small wikis.
-- `workflows/`: Document common workflows and patterns for working with the codebase. This includes things like development workflows, testing workflows, and deployment workflows.
-- `guides/`: Practical guides for working with the codebase. This includes things like coding standards, development workflows, and best practices.
+- `workflows/`: High-level documentation of repeatable workflows and process patterns relevant to the codebase — development cycle flows, testing strategies, CI/CD pipeline overviews, and deployment sequences.
+- `guides/`: Practical instructions for working with the codebase. This includes coding standards, contribution guidelines, environment setup, and other how-to references.
 - `references/`: Reference material for working with the codebase. This includes things like API documentation, configuration details, and other reference material. Might be replaced with a single `references.md` file for small wikis.
 
 ## Core Operations
@@ -104,7 +104,7 @@ Detailed operational procedures and templates are modularized in the `references
 3. **Decouple README Files from OKF**: Do not add OKF frontmatter to `README.md` files. Treat READMEs strictly as entry points (scope + usage) that link to `wiki/index.md`.
 4. **Keep `.wiki-meta.json` Minimal**: Store only necessary operational tracking state (`version`, `last_sync_commit`, `last_sync_timestamp`).
 5. **Use Relative Links Exclusively**: Use relative paths for all cross-page links (`[text](page.md)`) and source code references (`[symbol](../../src/<path/to/file.ext>#L10-L25)`). Avoid absolute `file:///` URLs.
-6. **Isolate Wiki Pages in `wiki/`**: Ensure wiki pages live exclusively inside module `wiki/` subdirectories (`wiki/**/*.md`). Never place wiki Markdown files directly among source code files. When the number of pages grows large, use subdirectories within `wiki/` to reflect the logical organization of the wiki (for upper levels only).
+6. **Isolate Wiki Pages in `wiki/`**: Ensure wiki pages live exclusively inside module `wiki/` subdirectories (`wiki/**/*.md`). Never place wiki Markdown files directly among source code files. When the number of pages grows large, organize them into named subdirectories within `wiki/` (e.g., `concepts/`, `decisions/`, `guides/`), where each subdirectory name mirrors a top-level section heading in `wiki/index.md`.
 
 ## References
 

@@ -43,7 +43,7 @@ A codebase-embedded wiki lives directly within the repository alongside target m
 
 ## 3. OKF YAML Frontmatter Specification
 
-Every Markdown wiki page inside a `wiki/` directory MUST begin with a standard YAML frontmatter block adhering to OKF v0.2. (Module `README.md` files do NOT include YAML frontmatter).
+Every Markdown wiki page inside a `wiki/` directory (except for `wiki/index.md` files) MUST begin with a standard YAML frontmatter block adhering to the OKF specification. (Module `README.md` files do NOT include YAML frontmatter).
 
 ### Frontmatter Schema
 
@@ -94,6 +94,7 @@ tags:
   - "<tag-1>"
   - "<tag-2>"
 timestamp: "<YYYY-MM-DDTHH:MM:SSZ>"
+verified: true | false
 stale_after: "<YYYY-MM-DDTHH:MM:SSZ>"
 related:
   - "[<Related Page Title>](<relative/path/to/other-wiki-page.md>)"

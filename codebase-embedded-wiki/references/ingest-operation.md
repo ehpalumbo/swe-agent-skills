@@ -69,4 +69,4 @@ The `ingest` operation updates or expands the codebase-embedded wiki using exter
 - [ ] Technical content reflects high-level architectural rationale (**why/how**) rather than temporary PR chatter or code snippet copies.
 - [ ] `wiki/index.md` in affected directories is updated with a **3-level deep Table of Contents**.
 - [ ] `README.md` files do **not** use OKF frontmatter and link to `wiki/index.md`.
-- [ ] `.wiki-meta.json` is updated with minimal tracking fields (`last_sync_commit`, `last_sync_timestamp`).
+- [ ] `.wiki-meta.json` is updated with minimal tracking fields (`version`, `last_sync_commit`, `last_sync_timestamp`).
