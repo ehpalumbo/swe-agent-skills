@@ -30,6 +30,8 @@
 
 [Describe the problem statement providing sufficient background information for readers to understand the proposal. Summarize what was discovered during codebase exploration, documentation review, or external spec analysis. Note any existing patterns, helper modules, or libraries that should be reused. Include references to any material used during the analysis.]
 
+---
+
 ## 3. Proposed Solution Approaches
 
 Evaluate the possible approaches to address the feature request or bug fix.
