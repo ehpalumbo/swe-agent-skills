@@ -4,7 +4,7 @@ description: Performs a comprehensive Software Impact Analysis for a feature req
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "1.0.0"
+  version: "1.1.0"
 ---
 
 # Software Impact Analysis
