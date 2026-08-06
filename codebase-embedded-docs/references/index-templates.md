@@ -1,10 +1,8 @@
 # Docs Index Templates (`docs/index.md`)
 
-Every `docs/` directory MUST contain an `index.md` Table of Contents indexed **up to 3 levels deep**. This allows AI agents to rapidly discover documentation structure without reading individual pages. Entries must provide just enough context for an agent to infer when it is relevant to load each file — no more.
+Every `docs/` directory MUST contain an `index.md` — a **3-level deep** Table of Contents for fast agent discovery. Entries give just enough context to infer relevance — no more.
 
-Top-level sections in `index.md` (as Markdown heading levels) mirror the subdirectory structure inside `docs/`. Whenever docs pages or major section headers are added or modified, the corresponding `docs/index.md` must be updated to stay current.
-
-OKF frontmatter is NOT expected for `docs/index.md` files.
+Top-level sections mirror the `docs/` subdirectory structure. Whenever pages or section headers change, update the corresponding `docs/index.md`. No OKF frontmatter in `index.md`.
 
 ---
 

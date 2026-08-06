@@ -1,72 +1,70 @@
 # Operation: `init` (Initialize Codebase-Embedded Documentation)
 
 > [!IMPORTANT]
-> `init` is deliberately **minimalistic**. On large multi-module repositories a full scan and wholesale documentation generation is expensive and rarely desired. `init` scaffolds only the lightweight structure needed to begin ingesting knowledge: module `README.md` entry points, `docs/` directories, and `docs/index.md` indexes. It does **not** generate full OKF docs pages or deep architecture content. If you later need content, add it incrementally via the [`ingest`](ingest-operation.md) operation.
+> `init` is deliberately **minimalistic** — full scans and wholesale generation are expensive and rarely wanted. It scaffolds only what's needed to begin ingesting: module `README.md` entry points, `docs/` directories, and `docs/index.md` indexes. **Start small and grow on demand**: create `docs/<category>/` branches only when the content being placed justifies them; add more later via [`ingest`](ingest-operation.md). No full OKF pages or deep architecture content here.
 
 ---
 
 ## When to Run `init`
 
-- Starting codebase-embedded docs in a repository for the first time.
-- Onboarding an un-documented or partially documented repository.
-- Re-bootstrapping docs after major restructuring.
+- First-time docs on a repository.
+- Onboarding an undocumented or partially documented repository.
+- Re-bootstrapping after major restructuring.
 
 ---
 
-## Detailed Step-by-Step Procedure
+## Step-by-Step Procedure
 
-### Step 1: Infer the Affected Module Branches (Read-Only)
+### Step 1: Infer Affected Module Branches (Read-Only)
 
-1. Inspect the root directory for an existing `README.md` and `docs/` directory.
-2. Infer the module structure from directory layout and project manifests (e.g., `package.json`, `pom.xml`, `Cargo.toml`, `go.mod`, `pyproject.toml`). Do **not** attempt an exhaustive file-by-file scan of large trees.
-3. Produce a proposed list of **affected branches**: the repository root plus each inferred module target that has a meaningful reason to hold docs. Each entry records its detected `README.md` / `docs/` presence.
+1. Check the root for an existing `README.md` and `docs/`.
+2. Infer modules from the directory layout and manifests (`package.json`, `pom.xml`, `Cargo.toml`, `go.mod`, `pyproject.toml`). Don't exhaustively scan large trees.
+3. Produce a proposed list of **affected branches** (root + each module with a reason to hold docs), noting each entry's `README.md` / `docs/` presence.
 
-> **Scope to where docs will actually live.** Never scaffold structure for empty modules or for modules that are not affected by the requested skill operation. Only create a branch when the requested operation actually needs to place documentation content there.
->
-> Keep discovery **read-only**. Do not create, move, or modify any files during this step.
+> **Scope to where docs will actually live** — never scaffold for empty or unaffected modules. Keep this step **read-only**.
 
 ### Step 2: Confirm the Inferred Module Structure with the User
 
-1. Present the affected branches (root + modules) and the planned scaffold for each (e.g., `README.md`, `docs/`, `docs/index.md`).
-2. **Ask the user to confirm the module boundaries are correct** before any file is created, especially for large multi-module repositories. Offer to add/remove modules based on their feedback.
-3. Do not proceed to file creation until the scope is confirmed.
+1. Present the affected branches and the planned scaffold for each (`README.md`, `docs/`, `docs/index.md`).
+2. **Confirm module boundaries** before creating anything, especially for large repos. Offer to add/remove modules.
+3. Do not create files until scope is confirmed.
 
 ### Step 3: Gather Enough Context to Populate `docs/index.md`
 
-> An empty or meaningless `index.md` is almost as bad as no index at all. Populate each index with real section/page entries, even if sparse, so later `ingest` runs can extend it.
+> An empty or meaningless `index.md` is almost as bad as none. Populate each with real entries, even if sparse, so later `ingest` runs can extend it.
 
-1. For each affected module, determine the docs **categories** that apply (see the category list in `SKILL.md`, e.g., `specs/`, `architecture/`, `decisions/`, `domain/`, `workflows/`, `guides/`).
-2. For each category, identify the concrete pages the requested operation will place there. Keep the branch list **trimmed to these actual placements** — do not create a category branch just because it is a listed category.
-3. Gather sufficient context to seed each `index.md`: infer what you can from manifests, existing READMEs, and obvious source layout.
-4. **Ask the user for details when context is insufficient** — e.g., "What does `<module-name>` do and what are its boundaries?" or "Which of these sections should I scaffold for `<module>`?" Collect concise, high-level facts; do not interrogate at implementation depth.
-5. Only scaffold `index.md` sections you can actually back with a nameable topic; leave-out categories that do not apply rather than fabricating placeholder headings.
+1. Pick the docs **categories** that apply (list in `SKILL.md`). **Start small** — for a new or simple module a few pages may be enough; don't force every category.
+2. Identify the concrete pages each category will hold; **trim the branch list to these placements** — never create a category branch just because it's listed.
+3. If no content exists for a category, **don't create its directory** — defer to a later `ingest`.
+4. Infer what you can from manifests, READMEs, and source layout.
+5. **Ask the user when context is insufficient** (e.g., "What does `<module>` do and what are its boundaries?"). Collect high-level facts only.
+6. Scaffold only `index.md` sections you can back with a nameable topic; no fabricated placeholder headings.
 
 ### Step 4: Create the Minimal Skeleton (Confirmation-Gated)
 
-> See [readme-template.md](readme-template.md) for the standard README template and decoupling rules, and [index-templates.md](index-templates.md) for index templates.
+> See [readme-template.md](readme-template.md) and [index-templates.md](index-templates.md).
 
-Now that structure is confirmed and context gathered, create files only for the branches where docs pages will be placed:
+Create files only for branches where pages will be placed:
 
-1. Create missing module `README.md` entry points **only for affected modules** using the standard **non-OKF** README pattern (scope & purpose, usage & integration, link to `docs/index.md`).
-2. Create a `docs/` directory and a `docs/index.md` for each affected module and the repository root.
-3. Create `docs/<category>/` subdirectories **only for the branches where docs pages will actually be placed**, as identified in Step 3. Never create a category subdirectory for empty or unrequested content.
-4. Populate each `docs/index.md` with the category headings and known page entries gathered in Step 3 — listing only branches that will hold pages.
-5. **Preserve existing content**: do not overwrite an existing `README.md`, `docs/index.md`, or docs page unless the user explicitly approves an update.
+1. Create missing module `README.md` entry points **only for affected modules** (scope & purpose, usage & integration, link to `docs/index.md`).
+2. Create a `docs/` directory and `docs/index.md` for each affected module and the root.
+3. Create `docs/<category>/` subdirectories **only where pages will actually be placed** (Step 3).
+4. Populate each `docs/index.md` with category headings and known page entries — only branches holding pages.
+5. **Preserve existing content**: don't overwrite a `README.md`, `docs/index.md`, or page unless the user approves.
 
-### Step 5: Preserve Existing Documentation & Avoid Major Generation
+### Step 5: Preserve Existing Content & Avoid Major Generation
 
-1. Preserve any existing `README.md`, docs pages, or index files.
-2. Do not create full OKF docs pages or detailed architecture summaries during this skeleton bootstrap.
-3. As the skeleton is only the entry point for knowledge, defer all content distillation to the [`ingest`](ingest-operation.md) operation.
+1. Preserve existing READMEs, pages, and indexes.
+2. Don't create full OKF pages or detailed summaries here; defer to [`ingest`](ingest-operation.md).
 
 ---
 
 ## Verification Criteria
 
-- [ ] The inferred module structure was **confirmed with the user** before any files were created.
-- [ ] Scaffolding covered only **affected modules** and only the **`docs/<category>/` branches where docs pages will be placed** — nothing was created for empty or unrequested modules/branches.
-- [ ] Only the minimal scaffold was created (missing `README.md`, `docs/`, `docs/index.md`) — no full OKF pages or architecture content.
-- [ ] Every created `docs/index.md` reflects the module's confirmed/supplied context, not empty fabrications, and lists only branches that hold pages.
-- [ ] No existing documentation was overwritten without explicit user approval.
-- [ ] Every module `README.md` uses no OKF frontmatter and links to `docs/index.md`.
+- [ ] Inferred module structure was **confirmed with the user** before any files were created.
+- [ ] Scaffold covered only **affected modules** and only **`docs/<category>/` branches where pages will be placed**.
+- [ ] Only the minimal scaffold was created — no full OKF pages or architecture content.
+- [ ] Every `docs/index.md` reflects real context (not fabrications) and lists only branches that hold pages.
+- [ ] No existing documentation was overwritten without approval.
+- [ ] Every module `README.md` has no OKF frontmatter and links to `docs/index.md`.
 - [ ] Every created `docs/` directory contains an `index.md`.

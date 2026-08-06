@@ -1,75 +1,76 @@
 # Operation: `ingest` (Ingest External Insights, PRs, or Commits)
 
-The `ingest` operation updates or expands the codebase-embedded documentation using external sources, pull requests, commit ranges, or provided documentation (RFCs, design docs, onboarding notes, incident postmortems). It distills raw delta information into high-level architectural rationales (*why*) and conceptual mechanics (*how*) within target module `docs/` directories, targeted for agent consumption.
+The `ingest` operation expands the codebase-embedded documentation from external sources — pull requests, commit ranges, or provided docs (RFCs, design docs, notes, postmortems) — distilling raw deltas into high-level *why/how* pages within affected module `docs/` directories.
 
 ---
 
 ## When to Run `ingest`
 
-- Merging or reviewing a Pull Request (PR) that introduces new concepts, architecture, or design decisions.
-- Ingesting a commit range (e.g., `git diff v1.0..v1.2` or feature branch).
-- Incorporating an external text document, RFC, architectural design document, or user notes into the codebase knowledge base.
-- Generating architectural design documentation from the current codebase state.
+- Merging or reviewing a PR that introduces new concepts, architecture, or decisions.
+- Ingesting a commit range (e.g., `git diff v1.0..v1.2` or a feature branch).
+- Incorporating an external document (RFC, design doc, user notes).
+- Generating architecture docs from the current codebase state.
 
 ---
 
-## Detailed Step-by-Step Procedure
+## Step-by-Step Procedure
 
 ### Precondition: Bootstrap Docs Skeleton for Affected Modules Only
 
-If an affected module (identified in Step 1) has not been bootstrapped, perform the [init operation](init-operation.md) **scoped to that module only**, creating just the `docs/` branches where the ingested content will be placed. Do not bootstrap the whole repository and do not create structure for modules that the input source does not touch.
+If an affected module isn't bootstrapped, run the [init operation](init-operation.md) **scoped to that module only**, creating just the `docs/` branches where content will land. Don't bootstrap the whole repo.
 
 ### Step 1: Parse the Input Source & Identify Affected Modules
 
 1. Determine the source type:
-   - **Pull Request / Commit Range:** Extract modified files, diffs, PR description, and commit messages using `git log` or `git diff`.
-   - **External Document / RFC / Design Doc:** Read the provided file or text.
-   - **Current Codebase State:** Generate an architectural design documentation from the current codebase state.
-2. Identify the target modules affected by the input source based on file paths or domain topics.
-3. **Keep the scope limited to these affected modules.** Modules not implicated by the input source are out of scope — do not create, modify, or re-index their documentation.
+   - **Pull Request / Commit Range:** extract modified files, diffs, PR description, and commit messages via `git log` / `git diff`.
+   - **External Document / RFC / Design Doc:** read the provided file or text.
+   - **Current Codebase State:** generate architecture docs from the current state.
+2. Identify the affected modules from file paths or domain topics.
+3. **Keep scope limited to these modules** — untouched modules stay untouched.
 
-### Step 2: Map Insights to Modules & High-Level Docs Topics
+### Step 2: Map Insights to Modules & High-Level Topics
 
-1. For each **affected** module, locate its local `README.md` and `docs/` subdirectory.
-2. Check existing OKF pages in `<module>/docs/**/*.md` and inspect `<module>/docs/index.md`.
-3. Distill input into high-level architectural concepts that reflect **why** decisions were made and **how** systems interact. **Do NOT copy code snippets, commit messages, or raw PR diffs into Markdown**.
+For each **affected** module:
+
+1. Locate its `README.md` and `docs/`.
+2. Review existing pages in `<module>/docs/**/*.md` and `<module>/docs/index.md`.
+3. Distill input into high-level *why/how* concepts. **Don't copy code snippets, commit messages, or diffs**.
 4. Decide whether to:
-   - **Update an existing OKF page**: Add new architectural insights, update `timestamp`.
-   - **Create a new OKF page**: If the input introduces a new architectural concept or design decision. Place the new page inside `<module>/docs/<category>/<topic-slug>.md` (e.g. `concepts/`, `decisions/`, etc.), reflecting the upper levels of the docs structure in the directory tree.
+   - **Update an existing OKF page** (add insights, update `timestamp`), or
+   - **Create a new OKF page** at `<module>/docs/<category>/<topic-slug>.md`. Prefer the smallest fit — reuse existing structure, and open a new `docs/<category>/` directory only when the module lacks a matching one and the content justifies it.
+5. **Watch page size**: if a page would exceed ~**500 lines** after this update, consider placing the new content in a dedicated page instead of bloating the current one.
 
 ### Step 2.5: Confirm New Pages & Branches with the User
 
-1. Before creating any **new** OKF page or `docs/<category>/` subdirectory, present the proposed additions to the user (which category, which page title, which module).
-2. **Confirm the placement is acceptable** — especially whether the new branch belongs in the affected module and the category is appropriate. Ask for the missing context if the input source does not already supply it (e.g., "What is the boundary of this new concept?").
-3. Do not create a new branch or destination directory that will end up empty; only create a branch when it will actually hold a page.
+1. Present proposed additions (category, page title, module) before creating any new page or `docs/<category>/` directory.
+2. **Confirm placement** — the right module and category. Ask for missing context if the input doesn't supply it.
+3. Never create a directory that will end up empty.
+4. When a page would exceed ~**500 lines**, **propose splitting** it into focused pages and confirm before restructuring. Propose; don't silently split.
 
-### Step 3: Write or Update OKF Docs Pages & Update `docs/index.md` TOC
+### Step 3: Write or Update OKF Pages & `docs/index.md` TOC
 
-> See [okf-spec.md](okf-spec.md) for the OKF frontmatter schema and docs page template, and [index-templates.md](index-templates.md) for the `docs/index.md` TOC template.
+> See [okf-spec.md](okf-spec.md) and [index-templates.md](index-templates.md).
 
-1. Format all new/updated pages with standard OKF YAML frontmatter:
-   - Set `timestamp` to current ISO-8601 string.
-   - Set `type` to one of: `architecture`, `decision-record`, `concept`, `guide`.
-   - Update `tags` to match OKF taxonomy.
-   - Add or update `related` links to other OKF pages using relative Markdown paths.
-   - Set `resource` to the source/configuration file(s) the page documents, when it tracks specific files.
-   - Set `stale_after` when the rationale has a known expiry (e.g., a temporary workaround or time-sensitive decision).
-2. Synthesize clear, durable technical descriptions focusing on high-level system behavior.
-3. **Update `<module>/docs/index.md` for affected modules only**: Whenever new docs pages or major section headers (`# Title`, `## Section`, `### Sub-section`) are added or modified, update the **3-level deep Table of Contents** in `<module>/docs/index.md`. Leave the indexes of unaffected modules untouched.
+1. Format all new/updated pages with OKF YAML frontmatter:
+   - `timestamp` = current ISO-8601 string; `type` in (`architecture`, `decision-record`, `concept`, `guide`).
+   - Update `tags`, add/update `related` (relative paths), set `resource`, and set `stale_after` when the rationale has a known expiry.
+2. Synthesize clear, durable descriptions of high-level behavior.
+3. **Update `<module>/docs/index.md` for affected modules only** — refresh the 3-level TOC; leave unaffected indexes untouched.
 
-### Step 4: Ensure README Files Remain Simple Entry Points
+### Step 4: Keep READMEs as Simple Entry Points
 
-1. Ensure module `README.md` files are **not** updated with OKF frontmatter.
-2. Verify affected module `README.md` files contain a link to `docs/index.md`.
-3. Do not modify README files of modules that were not affected by the input source.
+1. No OKF frontmatter in module `README.md`.
+2. Verify affected module READMEs link to `docs/index.md`.
+3. Don't modify READMEs of unaffected modules.
 
 ---
 
-### Verification Criteria for `ingest`
+## Verification Criteria
 
-- [ ] Only **affected modules** (identified in Step 1) had any files created, modified, or re-indexed.
-- [ ] New OKF pages and `docs/<category>/` branches were confirmed with the user and only created where a page will actually be placed (no empty branches).
-- [ ] All new/modified OKF pages live strictly inside `<module>/docs/**/*.md` (or global `docs/**/*.md`), reflecting upper docs levels in directory subdirectories.
-- [ ] Technical content reflects high-level architectural rationale (**why/how**) rather than temporary PR chatter or code snippet copies.
-- [ ] `docs/index.md` in affected directories is updated with a **3-level deep Table of Contents**; unaffected indexes are unchanged.
-- [ ] `README.md` files do **not** use OKF frontmatter and link to `docs/index.md`.
+- [ ] Only **affected modules** had files created, modified, or re-indexed.
+- [ ] New pages and `docs/<category>/` branches were confirmed and created only where a page lands (no empty branches); directories opened **on demand**, not pre-scaffolded.
+- [ ] Pages over ~**500 lines** were evaluated and any split was **proposed** before restructuring.
+- [ ] All new/modified pages live strictly inside `docs/**/*.md`.
+- [ ] Content reflects high-level *why/how*, not PR chatter or copied code.
+- [ ] `docs/index.md` in affected dirs is a **3-level TOC**; unaffected indexes unchanged.
+- [ ] `README.md` files have no OKF frontmatter and link to `docs/index.md`.

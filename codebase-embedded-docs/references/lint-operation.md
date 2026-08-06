@@ -1,58 +1,56 @@
 # Operation: `lint` (Health-Check & Audit Documentation)
 
-The `lint` operation performs a comprehensive health check on the codebase-embedded documentation. It verifies that `README.md` files do not follow OKF format, ensures every `docs/` directory contains an up-to-date `index.md` Table of Contents indexed down to 3 levels deep, audits OKF YAML frontmatter compliance, flags orphan or stale pages (`stale_after`) and checks for code duplication/cloning.
+The `lint` operation health-checks the codebase-embedded documentation: verifies READMEs aren't OKF, ensures every `docs/` dir has an up-to-date 3-level `index.md`, audits OKF frontmatter, and flags orphan/stale pages, code duplication, and oversized pages.
 
 ---
 
 ## When to Run `lint`
 
-- As part of continuous integration (CI) or pre-commit checks.
-- After bulk refactoring or updating multiple docs pages.
-- Periodically to audit documentation freshness, link health, and index completeness.
+- As part of CI or pre-commit checks.
+- After bulk refactoring or updating many docs pages.
+- Periodically to audit freshness, link health, and index completeness.
 
 ---
 
-## Detailed Step-by-Step Procedure
+## Step-by-Step Procedure
 
-### Step 1: Audit Manifest & README Decoupling
+### Step 1: Audit README Decoupling
 
-1. Scan repository modules and verify that **NO `README.md` file contains OKF YAML frontmatter**. If any `README.md` has OKF frontmatter, flag as an **Invalid README Format Error**.
-2. Verify that every module `README.md` contains a valid relative link to `docs/index.md`.
+1. Verify **no `README.md` contains OKF YAML frontmatter** — if any does, flag an **Invalid README Format Error**.
+2. Verify each module README links to `docs/index.md`.
 
 ### Step 2: Audit `docs/index.md` Completeness (3 Levels Deep)
 
-For every `docs/` directory (root `docs/` and module `<module>/docs/` folders):
+For every `docs/` directory (root and module):
 
-1. Verify that `index.md` exists. If missing, report a **Missing Docs Index Error**.
-2. Read `index.md` and verify it contains a Table of Contents indexed **up to 3 levels deep** (`# Title`, `## Section`, `### Sub-section`).
-3. Check that every OKF Markdown file in `<module>/docs/**/*.md` (including subdirectories reflecting upper docs levels) is listed in `index.md`. If a page or heading is missing, report an **Incomplete Index Warning**.
+1. Verify `index.md` exists — missing → **Missing Docs Index Error**.
+2. Verify a 3-level TOC (`# Title`, `## Section`, `### Sub-section`).
+3. Check every OKF file in `<module>/docs/**/*.md` is listed → missing → **Incomplete Index Warning**.
 
-### Step 3: Validate OKF YAML Frontmatter & Code Cloning Rules
+### Step 3: Validate OKF Frontmatter, Code Cloning & Page Size
 
-For every Markdown file inside `docs/` subdirectories:
+For every Markdown file inside `docs/`:
 
-1. Verify frontmatter starts with `---` and ends with `---`.
-2. Check required OKF v0.2 fields against defined fields in [OKF format](okf-spec.md).
-3. **Audit for Code Cloning**: Inspect page body for large code snippet blocks or line-by-line code implementations. If present, report a **Code Cloning Warning** (encourage high-level rationale over code repetition).
+1. Verify frontmatter starts and ends with `---`.
+2. Check required OKF fields against [okf-spec.md](okf-spec.md).
+3. **Audit code cloning**: large snippet blocks or line-by-line implementations → **Code Cloning Warning** (prefer high-level rationale).
+4. **Flag oversized pages**: any page >~**500 lines** → **Oversized Page Warning** with a concrete split proposal (focused pages it would break into, plus the `docs/index.md` update).
 
-### Step 4: Validate File Links & Markdown Cross-References
+### Step 4: Validate File Links & Cross-References
 
-For every Markdown docs page:
-
-1. Extract all Markdown links (`[text](path)`).
-2. Check relative file links: Verify that target Markdown files or source files exist on disk relative to the page path.
-3. Flag any absolute `file:///` URLs as **Non-Portable Link Warnings** (encourage relative paths).
-4. Flag any missing targets as **Broken Link Errors**.
+1. Extract all links (`[text](path)`).
+2. Verify relative file targets exist on disk.
+3. Flag absolute `file:///` URLs as **Non-Portable Link Warnings**.
+4. Flag missing targets as **Broken Link Errors**.
 
 ### Step 5: Detect Orphan & Unindexed Pages
 
-1. Collect all `<module>/docs/**/*.md` pages across all modules.
-2. Verify every page is indexed in the local `docs/index.md` or linked via `related` frontmatter.
-3. Flag any unindexed/unlinked pages as **Orphan Page Warnings**.
+1. Collect all `<module>/docs/**/*.md` pages.
+2. Verify each is indexed in `docs/index.md` or linked via `related`; flag unindexed/unlinked pages as **Orphan Page Warnings**.
 
-### Step 6: Generate Docs Lint Report
+### Step 6: Generate the Docs Lint Report
 
-Synthesize audit results into a structured Docs Lint Report following this template:
+Synthesize results into a structured report:
 
 ```markdown
 # Codebase Docs Health Audit Report
@@ -62,6 +60,7 @@ Synthesize audit results into a structured Docs Lint Report following this templ
 
 ## ⚠️ Warnings
 - **Missing `docs/index.md` TOC Entry**: `billing-service/docs/index.md` is missing heading entries for `concepts/tax-calculation.md`.
+- **Oversized Page (>500 lines)**: `billing-service/docs/concepts/tax-calculation.md` is 640 lines. Propose splitting into `tax-calculation.md`, `tax-rates.md`, and `tax-reporting.md`.
 
 ## ℹ️ Recommendations
 - Update `billing-service/docs/index.md` to cover up to 3 levels deep.
@@ -69,12 +68,13 @@ Synthesize audit results into a structured Docs Lint Report following this templ
 
 ---
 
-## Verification Criteria for `lint`
+## Verification Criteria
 
-- [ ] `README.md` files with OKF frontmatter are reported as Errors.
-- [ ] Missing `docs/index.md` files or incomplete 3-level TOCs are reported as Errors/Warnings.
-- [ ] Code snippet copying/cloning in docs pages is flagged as Warnings.
-- [ ] All broken file links are identified and reported as Errors.
-- [ ] Misplaced docs files outside `docs/` directories are reported as Errors.
-- [ ] Frontmatter schema violations are reported as Errors.
-- [ ] Non-portable absolute URLs and orphan pages are reported as Warnings.
+- [ ] `README.md` files with OKF frontmatter reported as Errors.
+- [ ] Missing `docs/index.md` or incomplete 3-level TOCs reported as Errors/Warnings.
+- [ ] Code snippet copying/cloning flagged as Warnings.
+- [ ] Docs pages >~500 lines flagged with an Oversized Page Warning and split proposal.
+- [ ] Broken file links reported as Errors.
+- [ ] Misplaced docs files outside `docs/` reported as Errors.
+- [ ] Frontmatter schema violations reported as Errors.
+- [ ] Non-portable URLs and orphan pages reported as Warnings.
