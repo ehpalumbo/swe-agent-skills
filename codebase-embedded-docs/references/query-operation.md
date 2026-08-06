@@ -33,7 +33,7 @@ The `query` operation allows AI agents or developers to navigate the codebase-em
 ### Step 3: Verify Freshness & Staleness Status
 
 1. Check `stale_after` fields in candidate OKF pages.
-2. If `stale_after` has passed, inspect the underlying `resource` code file or run `git log` to confirm the docs rationale remains accurate.
+2. If `stale_after` has passed, inspect the underlying `resource` file(s) (see [okf-spec.md](okf-spec.md)) or run `git log` to confirm the docs rationale remains accurate.
 
 ### Step 4: Synthesize Answer & Context Package
 

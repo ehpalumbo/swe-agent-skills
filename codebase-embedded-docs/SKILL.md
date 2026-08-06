@@ -74,13 +74,13 @@ Detailed operational procedures and templates are modularized in the `references
 
 ### `init` — Bootstrap Documentation Structure
 
-- **Trigger**: When initializing the codebase-embedded documentation for a repository by creating required `docs/` directories, `docs/index.md` files, module `README.md` entry points, and minimal tracking metadata.
-- **Procedure**: See [init-operation.md](references/init-operation.md).
+- **Trigger**: When initializing the codebase-embedded documentation for a repository by creating required `docs/` directories, `docs/index.md` files, and module `README.md` entry points.
+- **Procedure**: See [init-operation.md](references/init-operation.md). The procedure is intentionally minimalistic for large multi-module repositories: it infers the module structure read-only, confirms the scope with the user, gathers enough context to seed each `docs/index.md`, and scaffolds only the branches where docs pages will actually be placed (never empty or unaffected modules).
 
 ### `ingest` — Ingest PRs, Commits, & External Docs
 
 - **Trigger**: When incorporating new architectural decisions, PR diffs, commit ranges, or external documentation (RFCs, design docs, onboarding notes) into module `docs/` pages and updating `docs/index.md`.
-- **Procedure**: See [ingest-operation.md](references/ingest-operation.md).
+- **Procedure**: See [ingest-operation.md](references/ingest-operation.md). The operation is scoped to the modules affected by the input source: new pages and `docs/<category>/` branches are confirmed with the user and created only where content will actually be placed, and unaffected modules' docs and READMEs are left untouched.
 
 ### `query` — Knowledge Graph Traversal & Context Building
 
