@@ -22,7 +22,7 @@ The `query` operation lets agents or developers navigate the codebase-embedded d
 ### Step 2: Fast-Path Discovery via `docs/index.md`
 
 1. Read `<module>/README.md` for scope/usage; follow the link to `docs/index.md`.
-2. Scan the 3-level TOC in `<module>/docs/index.md` (or root `docs/index.md`).
+2. Scan the directory-heading TOC in `<module>/docs/index.md` (or root `docs/index.md`).
 3. Jump to the target OKF page without parsing unrelated files.
 4. Follow OKF metadata and links (`tags`, `type`, `description`, `related`) to complete context.
 
@@ -41,7 +41,7 @@ The `query` operation lets agents or developers navigate the codebase-embedded d
 
 ## Verification Criteria
 
-- [ ] Leverages `docs/index.md` (3-level TOC) for fast-path discovery.
+- [ ] Leverages `docs/index.md` (directory-heading TOC) for fast-path discovery.
 - [ ] Synthesizes high-level *why/how*, not raw code snippets.
 - [ ] Includes relative links to OKF pages and source code.
 - [ ] Flags any stale pages encountered.

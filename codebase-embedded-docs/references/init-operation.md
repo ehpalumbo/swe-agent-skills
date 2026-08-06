@@ -1,7 +1,8 @@
 # Operation: `init` (Initialize Codebase-Embedded Documentation)
 
-> [!IMPORTANT]
-> `init` is deliberately **minimalistic** — full scans and wholesale generation are expensive and rarely wanted. It scaffolds only what's needed to begin ingesting: module `README.md` entry points, `docs/` directories, and `docs/index.md` indexes. **Start small and grow on demand**: create `docs/<category>/` branches only when the content being placed justifies them; add more later via [`ingest`](ingest-operation.md). No full OKF pages or deep architecture content here.
+The `init` operation bootstaps repository docs structure: creates required `docs/` directories, `docs/index.md` files, and module `README.md` entry points.
+
+`init` is deliberately **minimalistic** — full scans and wholesale generation are expensive and rarely wanted. It scaffolds only what's needed to begin ingesting: module `README.md` entry points, `docs/` directories, and `docs/index.md` indexes. **Start small and grow on demand**: create `docs/<category>/` branches only when the content being placed justifies them; add more later via [`ingest`](ingest-operation.md). No full OKF pages or deep architecture content here.
 
 ---
 

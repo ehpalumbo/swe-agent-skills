@@ -50,11 +50,11 @@ Docs live in dedicated `docs/` subdirectories beside module `README.md` files, n
 - **Open Knowledge Format (OKF)**: An open, vendor-neutral standard sharing knowledge as a directory of Markdown files with YAML frontmatter.
 - **Single vs Multiple Modules**: Single-module codebases put all knowledge in global `docs/`. Multi-module repos use global `docs/` for cross-cutting concerns and per-module `docs/` for module-specific ones.
 - **READMEs vs Docs Pages**: `README.md` files are **not** OKF — quick scope/usage intros that link to `docs/index.md`.
-- **Docs Index**: Every `docs/` directory MUST contain an `index.md` — a TOC up to **3 levels deep** for fast agent discovery. Not OKF.
+- **Docs Index**: Every `docs/` directory MUST contain an `index.md` — a flat TOC where headings represent subdirectories and bullets list individual pages, each distilled into a one-sentence summary. Not OKF.
 
 ### Recommended Structure
 
-Organize `docs/` into **categories** (select what applies per module/level):
+Organize `docs/` into documentation **categories**. For example:
 
 - `specs/`: High-level project specifications — goals, functional/non-functional requirements not captured in code.
 - `architecture/`: High-level architecture, system overview, technology stack, architectural patterns.
@@ -63,23 +63,24 @@ Organize `docs/` into **categories** (select what applies per module/level):
 - `workflows/`: Repeatable process patterns — development flows, testing strategy, CI/CD, deployment sequences.
 - `guides/`: Practical how-to references — coding standards, contribution guidelines, environment setup.
 
-> **Start Small, Grow on Demand.** Organizing docs into categories are the full roadmap, **not the required layout**. Begin with the minimum a module needs — often a single `docs/index.md` plus a handful of pages — and open new `docs/<category>/` directories only when knowledge genuinely accumulates. Never pre-scaffold category branches.
+Considerations:
 
-> **Split Long Pages (>500 lines).** Keep pages focused. When a page approaches ~**500 lines**, assess splitting into focused pages (one concept/decision/guide per page) and **propose** the split — never let a doc silently balloon.
+- **Start Small, Grow on Demand.** Organizing docs into categories is the full roadmap, **not the required layout**. Begin with the minimum a module needs — often a single `docs/index.md` plus a handful of pages — and open new `docs/<category>/` directories only when knowledge genuinely accumulates. Never pre-scaffold category branches.
+- **Split Long Pages (>500 lines).** Keep pages focused. When a page approaches ~**500 lines**, assess splitting into focused pages (one concept/decision/guide per page) and **propose** the split — never let a doc silently balloon.
 
 ## Core Operations
 
-Detailed procedures are modularized in `references/`. Follow the guide matching the detected trigger:
+Detailed procedures are modularized in [`references/`](references/). Follow the guide matching the detected trigger:
 
 ### `init` — Bootstrap Documentation Structure
 
 - **Trigger**: Initializing repository docs — creating required `docs/` directories, `docs/index.md` files, and module `README.md` entry points.
-- **Procedure**: See [init-operation.md](references/init-operation.md). Minimalistic: infer module structure read-only, confirm scope with the user, seed each `docs/index.md` from context, and scaffold only branches where docs pages will land.
+- **Procedure**: See [init-operation.md](references/init-operation.md).
 
 ### `ingest` — Ingest PRs, Commits, & External Docs
 
 - **Trigger**: Incorporating new architectural decisions, PR diffs, commit ranges, or external docs (RFCs, design docs, onboarding notes) into module `docs/` pages and updating `docs/index.md`.
-- **Procedure**: See [ingest-operation.md](references/ingest-operation.md). Scoped to affected modules: new pages and `docs/<category>/` branches are confirmed with the user and opened on demand; ~500-line splits are proposed, not performed silently.
+- **Procedure**: See [ingest-operation.md](references/ingest-operation.md).
 
 ### `query` — Knowledge Graph Traversal & Context Building
 
@@ -89,12 +90,12 @@ Detailed procedures are modularized in `references/`. Follow the guide matching 
 ### `lint` — Documentation Health Check & Audit
 
 - **Trigger**: Performing a health check to keep docs well-organized, up-to-date, and error-free.
-- **Procedure**: See [lint-operation.md](references/lint-operation.md). Flags oversized pages (>~500 lines) with a split proposal.
+- **Procedure**: See [lint-operation.md](references/lint-operation.md).
 
 ## Execution Guidelines
 
 1. **High-Level Rationale**: Explain *why* and high-level *how*. Never copy code blocks, signatures, or verbatim logic into docs pages.
-2. **3-Level Deep `index.md`**: Every `docs/` folder has an `index.md` as a 3-level TOC.
+2. **Directory-Indexed `index.md`**: Every `docs/` folder has an `index.md` whose headings mirror its subdirectories and whose bullets list each page in one sentence.
 3. **Decouple READMEs from OKF**: No OKF frontmatter in `README.md`; treat as entry points linking to `docs/index.md`.
 4. **Relative Links Only**: Use relative paths for cross-page links and source references; avoid absolute `file:///` URLs.
 5. **Isolate Docs Pages in `docs/`**: Docs pages live exclusively inside `docs/**/*.md`, never among source files.

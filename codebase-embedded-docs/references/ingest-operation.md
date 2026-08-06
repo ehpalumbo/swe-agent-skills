@@ -55,7 +55,7 @@ For each **affected** module:
    - `timestamp` = current ISO-8601 string; `type` in (`architecture`, `decision-record`, `concept`, `guide`).
    - Update `tags`, add/update `related` (relative paths), set `resource`, and set `stale_after` when the rationale has a known expiry.
 2. Synthesize clear, durable descriptions of high-level behavior.
-3. **Update `<module>/docs/index.md` for affected modules only** — refresh the 3-level TOC; leave unaffected indexes untouched.
+3. **Update `<module>/docs/index.md` for affected modules only** — refresh the `index.md` TOC; leave unaffected indexes untouched.
 
 ### Step 4: Keep READMEs as Simple Entry Points
 
@@ -72,5 +72,5 @@ For each **affected** module:
 - [ ] Pages over ~**500 lines** were evaluated and any split was **proposed** before restructuring.
 - [ ] All new/modified pages live strictly inside `docs/**/*.md`.
 - [ ] Content reflects high-level *why/how*, not PR chatter or copied code.
-- [ ] `docs/index.md` in affected dirs is a **3-level TOC**; unaffected indexes unchanged.
+- [ ] `docs/index.md` in affected dirs lists current pages as one-sentence bullets under their directory headings; unaffected indexes unchanged.
 - [ ] `README.md` files have no OKF frontmatter and link to `docs/index.md`.

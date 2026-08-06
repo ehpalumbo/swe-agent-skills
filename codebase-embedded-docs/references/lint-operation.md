@@ -1,6 +1,6 @@
 # Operation: `lint` (Health-Check & Audit Documentation)
 
-The `lint` operation health-checks the codebase-embedded documentation: verifies READMEs aren't OKF, ensures every `docs/` dir has an up-to-date 3-level `index.md`, audits OKF frontmatter, and flags orphan/stale pages, code duplication, and oversized pages.
+The `lint` operation health-checks the codebase-embedded documentation: verifies READMEs aren't OKF, ensures every `docs/` dir has an up-to-date `index.md` covering all its pages, audits OKF frontmatter, and flags orphan/stale pages, code duplication, and oversized pages.
 
 ---
 
@@ -19,13 +19,14 @@ The `lint` operation health-checks the codebase-embedded documentation: verifies
 1. Verify **no `README.md` contains OKF YAML frontmatter** — if any does, flag an **Invalid README Format Error**.
 2. Verify each module README links to `docs/index.md`.
 
-### Step 2: Audit `docs/index.md` Completeness (3 Levels Deep)
+### Step 2: Audit `docs/index.md` Completeness
 
 For every `docs/` directory (root and module):
 
 1. Verify `index.md` exists — missing → **Missing Docs Index Error**.
-2. Verify a 3-level TOC (`# Title`, `## Section`, `### Sub-section`).
-3. Check every OKF file in `<module>/docs/**/*.md` is listed → missing → **Incomplete Index Warning**.
+2. Verify headings mirror subdirectories (headings = directories, bullets = files).
+3. Verify each heading carries a short scope description of its directory.
+4. Check every OKF file in `<module>/docs/**/*.md` is listed as a single-line, one-sentence bullet under its matching directory heading → missing or malformed → **Incomplete Index Warning**.
 
 ### Step 3: Validate OKF Frontmatter, Code Cloning & Page Size
 
@@ -59,11 +60,11 @@ Synthesize results into a structured report:
 *None.*
 
 ## ⚠️ Warnings
-- **Missing `docs/index.md` TOC Entry**: `billing-service/docs/index.md` is missing heading entries for `concepts/tax-calculation.md`.
+- **Missing `docs/index.md` TOC Entry**: `billing-service/docs/index.md` is missing the bullet entry for `concepts/tax-calculation.md` under its `## Concepts` heading.
 - **Oversized Page (>500 lines)**: `billing-service/docs/concepts/tax-calculation.md` is 640 lines. Propose splitting into `tax-calculation.md`, `tax-rates.md`, and `tax-reporting.md`.
 
 ## ℹ️ Recommendations
-- Update `billing-service/docs/index.md` to cover up to 3 levels deep.
+- Update `billing-service/docs/index.md` to list all pages as one-sentence bullets under their directory headings.
 ```
 
 ---
@@ -71,7 +72,7 @@ Synthesize results into a structured report:
 ## Verification Criteria
 
 - [ ] `README.md` files with OKF frontmatter reported as Errors.
-- [ ] Missing `docs/index.md` or incomplete 3-level TOCs reported as Errors/Warnings.
+- [ ] Missing `docs/index.md` or index entries not listed under their directory headings reported as Errors/Warnings.
 - [ ] Code snippet copying/cloning flagged as Warnings.
 - [ ] Docs pages >~500 lines flagged with an Oversized Page Warning and split proposal.
 - [ ] Broken file links reported as Errors.
