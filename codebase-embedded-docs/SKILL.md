@@ -13,7 +13,7 @@ Use this skill to create, maintain, query, and health-check **codebase-embedded 
 
 ## Definition
 
-Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks. Docs are never mixed into source files: each module has a `README.md` entry point plus a `docs/` subdirectory containing an `index.md` table of contents. The global `docs/` covers cross-cutting concerns; module `docs/` covers module-specific ones.
+Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks. Docs are never mixed into source files. The global `docs/` covers cross-cutting concerns; module `docs/` covers module-specific ones. `docs/` tend to live high in the directory tree: parent modules whose submodules are really layers of an application stack hold a single `README.md` + `docs/` covering their children, rather than scattering a `docs/` into every leaf submodule.
 
 ## Objective & Philosophy
 
@@ -48,7 +48,7 @@ Docs live in dedicated `docs/` subdirectories beside module `README.md` files, n
 ```
 
 - **Open Knowledge Format (OKF)**: An open, vendor-neutral standard sharing knowledge as a directory of Markdown files with YAML frontmatter.
-- **Single vs Multiple Modules**: Single-module codebases put all knowledge in global `docs/`. Multi-module repos use global `docs/` for cross-cutting concerns and per-module `docs/` for module-specific ones.
+- **Single vs Multiple Modules**: Single-module codebases put all knowledge in global `docs/`. Multi-module repos use global `docs/` for cross-cutting concerns and per-module `docs/` for module-specific ones. Consolidate `docs/` at parent modules rather than giving every leaf submodule its own; when submodules are application-stack layers, one parent `README.md` + `docs/index.md` documents the whole component.
 - **READMEs vs Docs Pages**: `README.md` files are **not** OKF — quick scope/usage intros that link to `docs/index.md`.
 - **Docs Index**: Every `docs/` directory MUST contain an `index.md` — a flat TOC where headings represent subdirectories and bullets list individual pages, each distilled into a one-sentence summary. Not OKF.
 
