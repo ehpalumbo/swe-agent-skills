@@ -13,17 +13,23 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 ## Included Skills
 
-### 1. [Software Impact Analysis](./software-impact-analysis/SKILL.md)
+### [Software Impact Analysis](./software-impact-analysis/SKILL.md)
 
 * **Purpose:** Pre-code analysis to evaluate requirements, map affected files/symbols, assess side effects, and propose technical design options.
 * **When to use:** Use before implementing any feature request, bug fix, or refactoring.
 * **Output:** A structured impact analysis report detailing pros/cons of proposed approaches, regression risks, and open questions.
 
-### 2. [Implementation Planning](./implementation-planning/SKILL.md)
+### [Implementation Planning](./implementation-planning/SKILL.md)
 
 * **Purpose:** Translates requirements or impact analyses into concrete, step-by-step development tasks.
 * **When to use:** Use after design/architecture is approved to plan coding execution in manageable, reviewable slices.
 * **Output:** An actionable implementation plan listing tasks with affected files, clear acceptance criteria, and verification steps.
+
+### [Codebase-Embedded Documentation](./codebase-embedded-docs/SKILL.md) *(Preview)*
+
+* **Purpose:** Builds, maintains, navigates, and health-checks codebase-embedded documentation using Google's Open Knowledge Format (OKF) and Andrej Karpathy's LLM patterns for curating project knowledge.
+* **When to use:** Use to initialize, ingest, query, or audit repository documentation aimed at agentic development.
+* **Output:** Module-level `README.md` files, `docs/**/*.md` OKF docs pages, root `docs/index.md`, and health audit reports.
 
 ## Usage & Agent Integration
 
