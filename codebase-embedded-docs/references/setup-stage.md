@@ -1,16 +1,23 @@
-# Operation: `init` (Initialize Codebase-Embedded Documentation)
+# Setup Stage: Bootstrap the Docs Skeleton (Stage 0 of `ingest`)
 
-The `init` operation bootstraps the doc structure minimalistically — no full scans, wholesale generation, OKF pages, or deep architecture content. It only scaffolds the doc roots you need to begin ingesting: `README.md` entry points, `docs/` directories, and `docs/index.md` indexes. **Start small and grow on demand**: new `docs/<category>/` branches appear only when content justifies them, later via [`ingest`](ingest-operation.md).
+This is the deep-dive for **Stage 0** of the [`ingest`](ingest-operation.md) operation. A docs skeleton is a precondition for content generation, so bootstrapping runs first, before any knowledge is distilled.
 
-**Prefers docs living high in the tree.** Model `docs/` placement on the logical component, not the physical folder of every module. A parent module often accommodates the docs for its children — especially when submodules are merely **layers of an application stack** (e.g., a `billing-service` parent whose `api/`, `core/`, `persistence/`, `workers/` are functional layers). Invest in one parent `docs/` rather than scattering thin `docs/` across every leaf.
+The setup stage scaffolds doc structure minimalistically — **no** full scans, wholesale generation, OKF pages, or deep architecture content. It only creates the doc roots needed to begin ingesting: `README.md` entry points, `docs/` directories, and `docs/index.md` indexes.
+
+**Start small and grow on demand**: new `docs/<category>/` branches appear only when content justifies them.
+
+**Docs live high in the tree** — model `docs/` placement on the logical component, not the physical folder of every module; a parent module often owns the docs for its children (e.g., a `billing-service` parent whose `api/`, `core/`, `persistence/`, `workers/` are functional layers). One parent `docs/` beats many thin leaf `docs/`.
 
 ---
 
-## When to Run `init`
+## When the Setup Stage Applies
 
-- First-time docs on a repository.
+- First-time docs on a repository (runs as a **codebase-state** `ingest`).
 - Onboarding an undocumented or partially documented repository.
 - Re-bootstrapping after major restructuring.
+- Any `ingest` whose affected module lacks `README.md` + `docs/` + `docs/index.md`.
+
+It does **not** apply when folding PRs, commit ranges, or external docs into already-bootstrapped modules — skip to [`ingest`](ingest-operation.md) Step 2 directly.
 
 ---
 
@@ -32,10 +39,11 @@ The `init` operation bootstraps the doc structure minimalistically — no full s
 2. **Confirm which submodules are consolidated under a parent** — especially in layered/stack codebases — so child layers get no `docs/` of their own.
 3. Confirm module boundaries; offer to add/remove or re-parent modules.
 4. Don't create files until scope is confirmed.
+5. **Batch, don't interleave**: present the full proposed scaffold once and apply after a single approval — ideally batched into `ingest`'s Step 2.5 sign-off. For unattended runs, one sign-off for the whole batch before creating anything.
 
 ### Step 3: Gather Enough Context to Populate `docs/index.md`
 
-> An empty or meaningless `index.md` is almost as bad as none. Populate each with real entries, even if sparse, so later `ingest` runs can extend it.
+> An empty or meaningless `index.md` is almost as bad as none. Populate each with real entries, even if sparse, so the `ingest` content stages can extend it.
 
 1. Pick the docs **categories** that apply (list in `SKILL.md`). **Start small** — for a new or simple module a few pages may be enough; don't force every category.
 2. Identify the concrete pages each category will hold; **trim the branch list to these placements** — never create a category branch just because it's listed.
@@ -54,18 +62,13 @@ Create files only for branches holding pages — and **prefer one parent branch 
 2. Create a `docs/` + `docs/index.md` for each affected module and the root — where submodules are stack layers, use **one** parent `docs/index.md` to enumerate the sub-layers rather than nesting child `docs/` trees.
 3. Create `docs/<category>/` subdirectories **only where pages will be placed** (Step 3).
 4. Populate each `docs/index.md` with category headings and known page entries.
-5. **Preserve existing content**: don't overwrite a `README.md`, `docs/index.md`, or page unless the user approves.
-
-### Step 5: Preserve Existing Content & Avoid Major Generation
-
-1. Preserve existing READMEs, pages, and indexes.
-2. Don't create full OKF pages or detailed summaries here; defer to [`ingest`](ingest-operation.md).
+5. **Preserve existing content** and **avoid major generation**: don't overwrite a `README.md`, `docs/index.md`, or page without approval, and don't create full OKF pages or detailed summaries here — the `ingest` content stages (Steps 2-3 of `ingest-operation.md`) add those once the skeleton is confirmed.
 
 ---
 
 ## Verification Criteria
 
-- [ ] Inferred module structure was **confirmed with the user** before any files were created.
+- [ ] Infers doc placement **read-only**: it created no files until scope was confirmed with the user.
 - [ ] `docs/` roots were **consolidated high in the tree**: parent modules with layer submodules hold one `README.md` + `docs/` covering their children; leaf layers have no redundant `docs/`.
 - [ ] Scaffold covered only **affected modules** and only `docs/<category>/` branches where pages will be placed.
 - [ ] Only the minimal scaffold was created — no full OKF pages or architecture content.

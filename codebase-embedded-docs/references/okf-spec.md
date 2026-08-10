@@ -8,7 +8,7 @@ The following frontmatter template defines the fields docs pages should declare.
 
 ```yaml
 ---
-type: <decision-record | constraint | guide | workflow | entity | stakeholder | environment> # just to name a few common types 
+type: <architecture | specification | decision-record | concept | guide | constraint | workflow | entity | stakeholder | environment> # canonical list — see "Canonical Types" below 
 title: "<Human-readable concise title>" # descriptive but short
 description: "<1-2 sentence summary of what this docs page covers and why it exists>" # concise summary of the page contents
 tags: # 2 to 5 relevant taxonomy tags for indexing and querying
@@ -27,6 +27,23 @@ stale_after: "<YYYY-MM-DD>" # optional: date after which the page should be re-v
 
 > [!NOTE]
 > `type` is **metadata** and independent of directory structure. The `docs/<category>/` subdirectory a page lives in is purely structural; it doesn't constrain the declared `type`.
+
+## Canonical Types
+
+This is the recommended list of `type` values. Every docs page, and every operation (`ingest`, `query`, `lint`), should prefer using these values — but other types may be proposed by the agent as needed.
+
+| `type` | Meaning |
+| --- | --- |
+| `architecture` | System/component structure, technology stack, and how parts interact. |
+| `specification` | High-level specification: goals, functional/non-functional requirements, scope boundaries not captured in code. |
+| `decision-record` | An ADR-style record: context, decision, trade-offs, consequences. One decision per page. |
+| `concept` | Domain mental model: key abstractions, business rules, constraints. |
+| `guide` | Practical how-to: coding standards, setup, contribution process. |
+| `constraint` | A non-negotiable boundary or technical requirement. |
+| `workflow` | A repeatable process sequence: testing strategy, CI/CD, deployment. |
+| `entity` | A domain entity or data model. |
+| `stakeholder` | A person, team, or system with interests in the codebase. |
+| `environment` | An operating environment or configuration context. |
 
 ## Staleness & Resource Tracking
 

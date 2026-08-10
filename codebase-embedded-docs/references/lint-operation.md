@@ -17,7 +17,7 @@ The `lint` operation health-checks the codebase-embedded documentation: verifies
 ### Step 1: Audit README Decoupling
 
 1. Verify **no `README.md` contains OKF YAML frontmatter** — if any does, flag an **Invalid README Format Error**.
-2. Verify each module README links to `docs/index.md`.
+2. Verify every module (and the root) README links to its `docs/index.md` — a missing or broken link is a **Missing Docs Index Link Error**.
 
 ### Step 2: Audit `docs/index.md` Completeness
 
@@ -25,8 +25,8 @@ For every `docs/` directory (root and module):
 
 1. Verify `index.md` exists — missing → **Missing Docs Index Error**.
 2. Verify headings mirror subdirectories (headings = directories, bullets = files).
-3. Verify each heading carries a short scope description of its directory.
-4. Check every OKF file in `<module>/docs/**/*.md` is listed as a single-line, one-sentence bullet under its matching directory heading → missing or malformed → **Incomplete Index Warning**.
+3. Verify each heading carries a one-to-two-sentence scope description, written without a leading verb (per [index-templates.md](index-templates.md)) → violation → **Incomplete Index Warning**.
+4. Check every OKF file in `<module>/docs/**/*.md` is listed as a single-line, one-sentence bullet under its matching directory heading → missing or malformed → **Incomplete Index Warning**. Summaries must synthesize page *content*, not restate its title or purpose label.
 
 ### Step 3: Validate OKF Frontmatter, Code Cloning & Page Size
 
@@ -39,7 +39,7 @@ For every Markdown file inside `docs/`:
 
 ### Step 4: Validate File Links & Cross-References
 
-1. Extract all links (`[text](path)`).
+1. Extract all markdown links (`[text](path)`) — from both page bodies and `related:` frontmatter entries.
 2. Verify relative file targets exist on disk.
 3. Flag absolute `file:///` URLs as **Non-Portable Link Warnings**.
 4. Flag missing targets as **Broken Link Errors**.
@@ -61,6 +61,7 @@ Synthesize results into a structured report:
 
 ## ⚠️ Warnings
 - **Missing `docs/index.md` TOC Entry**: `billing-service/docs/index.md` is missing the bullet entry for `concepts/tax-calculation.md` under its `## Concepts` heading.
+- **Missing Resource Target**: `billing-service/docs/concepts/tax-calculation.md` lists a `resource:` entry (`src/main/java/calc/TaxEngine.java`) that no longer exists.
 - **Oversized Page (>500 lines)**: `billing-service/docs/concepts/tax-calculation.md` is 640 lines. Propose splitting into `tax-calculation.md`, `tax-rates.md`, and `tax-reporting.md`.
 
 ## ℹ️ Recommendations
@@ -72,6 +73,7 @@ Synthesize results into a structured report:
 ## Verification Criteria
 
 - [ ] `README.md` files with OKF frontmatter reported as Errors.
+- [ ] README files missing or breaking their link to `docs/index.md` reported as **Missing Docs Index Link Errors** (sole owner is `lint`, not `ingest`, when docs already exist).
 - [ ] Missing `docs/index.md` or index entries not listed under their directory headings reported as Errors/Warnings.
 - [ ] Code snippet copying/cloning flagged as Warnings.
 - [ ] Docs pages >~500 lines flagged with an Oversized Page Warning and split proposal.
@@ -79,3 +81,6 @@ Synthesize results into a structured report:
 - [ ] Misplaced docs files outside `docs/` reported as Errors.
 - [ ] Frontmatter schema violations reported as Errors.
 - [ ] Non-portable URLs and orphan pages reported as Warnings.
+- [ ] Index headings without verb-less scope descriptions, or bullet summaries that restate page titles, reported as Warnings.
+- [ ] `related:` frontmatter markdown links validated for broken targets.
+- [ ] `resource:` frontmatter entries validated for missing file targets and reported as Warnings.

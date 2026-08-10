@@ -1,6 +1,6 @@
 ---
 name: codebase-embedded-docs
-description: Operate codebase-embedded documentation (init, ingest, query, lint) following Google's Open Knowledge Format (OKF). Use when initializing repository docs, ingesting PRs or design docs, gathering architecture context, or auditing documentation health for agentic development.
+description: Operate codebase-embedded documentation (ingest, query, lint) following Google's Open Knowledge Format (OKF). Use when managing repository documentation, ingesting PRs or design docs into module docs/, gathering documented architecture or design-rationale context, or auditing documentation health. Not for live source queries (signatures, APIs, implementations) or general-purpose linting — explore the code directly for those.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
@@ -13,7 +13,7 @@ Use this skill to create, maintain, query, and health-check **codebase-embedded 
 
 ## Definition
 
-Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks. Docs are never mixed into source files. The global `docs/` covers cross-cutting concerns; module `docs/` covers module-specific ones. `docs/` tend to live high in the directory tree: parent modules whose submodules are really layers of an application stack hold a single `README.md` + `docs/` covering their children, rather than scattering a `docs/` into every leaf submodule.
+Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks. Docs are never mixed into source files: the global `docs/` covers cross-cutting concerns, module `docs/` covers module-specific ones, and both lean toward consolidated parent branches (see "Single vs Multiple Modules" below).
 
 ## Objective & Philosophy
 
@@ -48,7 +48,7 @@ Docs live in dedicated `docs/` subdirectories beside module `README.md` files, n
 ```
 
 - **Open Knowledge Format (OKF)**: An open, vendor-neutral standard sharing knowledge as a directory of Markdown files with YAML frontmatter.
-- **Single vs Multiple Modules**: Single-module codebases put all knowledge in global `docs/`. Multi-module repos use global `docs/` for cross-cutting concerns and per-module `docs/` for module-specific ones. Consolidate `docs/` at parent modules rather than giving every leaf submodule its own; when submodules are application-stack layers, one parent `README.md` + `docs/index.md` documents the whole component.
+- **Single vs Multiple Modules**: Single-module codebases put all knowledge in global `docs/`. Multi-module repos use global `docs/` for cross-cutting concerns and per-module `docs/` for module-specific ones. **`docs/` live high in the tree**: parent modules whose submodules are application-stack layers hold one `README.md` + `docs/` covering their children, rather than scattering a `docs/` into every leaf submodule.
 - **READMEs vs Docs Pages**: `README.md` files are **not** OKF — quick scope/usage intros that link to `docs/index.md`.
 - **Docs Index**: Every `docs/` directory MUST contain an `index.md` — a flat TOC where headings represent subdirectories and bullets list individual pages, each distilled into a one-sentence summary. Not OKF.
 
@@ -66,16 +66,11 @@ Organize `docs/` into documentation **categories**. For example:
 Considerations:
 
 - **Start Small, Grow on Demand.** Organizing docs into categories is the full roadmap, **not the required layout**. Begin with the minimum a module needs — often a single `docs/index.md` plus a handful of pages — and open new `docs/<category>/` directories only when knowledge genuinely accumulates. Never pre-scaffold category branches.
-- **Split Long Pages (>500 lines).** Keep pages focused. When a page approaches ~**500 lines**, assess splitting into focused pages (one concept/decision/guide per page) and **propose** the split — never let a doc silently balloon.
+- **Split Long Pages (>500 lines).** Keep pages focused. When a page approaches ~**500 lines**, propose splitting it into focused pages (one concept/decision/guide per page, `docs/index.md` updated) — never let a doc silently balloon.
 
 ## Core Operations
 
-Detailed procedures are modularized in [`references/`](references/). Follow the guide matching the detected trigger:
-
-### `init` — Bootstrap Documentation Structure
-
-- **Trigger**: Initializing repository docs — creating required `docs/` directories, `docs/index.md` files, and module `README.md` entry points.
-- **Procedure**: See [init-operation.md](references/init-operation.md).
+Detailed procedures are modularized in [`references/`](references/). Follow the guide matching the detected trigger.
 
 ### `ingest` — Ingest PRs, Commits, & External Docs
 
@@ -95,12 +90,9 @@ Detailed procedures are modularized in [`references/`](references/). Follow the 
 ## Execution Guidelines
 
 1. **High-Level Rationale**: Explain *why* and high-level *how*. Never copy code blocks, signatures, or verbatim logic into docs pages.
-2. **Directory-Indexed `index.md`**: Every `docs/` folder has an `index.md` whose headings mirror its subdirectories and whose bullets list each page in one sentence.
-3. **Decouple READMEs from OKF**: No OKF frontmatter in `README.md`; treat as entry points linking to `docs/index.md`.
-4. **Relative Links Only**: Use relative paths for cross-page links and source references; avoid absolute `file:///` URLs.
-5. **Isolate Docs Pages in `docs/`**: Docs pages live exclusively inside `docs/**/*.md`, never among source files.
-6. **Start Small, Grow on Demand**: Begin with the minimal structure; open new `docs/<category>/` directories only when content justifies them.
-7. **Split Long Pages (>500 lines)**: Pages approaching 500 lines must be evaluated and a split proposed, with `docs/index.md` updated.
+2. **Relative Links Only**: Use relative paths for cross-page links and source references; avoid absolute `file:///` URLs.
+3. **Isolate Docs Pages in `docs/`**: Docs pages live exclusively inside `docs/**/*.md`, never among source files.
+4. **Confirm-Then-Apply Posture**: Present proposed pages, `docs/<category>/` branches, and re-parented modules up front; apply after a single approval. For unattended runs, collect all changes and require one sign-off, then create.
 
 ## References
 

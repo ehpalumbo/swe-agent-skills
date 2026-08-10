@@ -20,12 +20,14 @@
 # `<Module Name>`
 
 ## Scope & Purpose
+
 Concise overview of what this module does, its business boundaries, and key responsibilities.
 
 ## Usage & Integration
+
 How other modules interact with this module, key interfaces exposed, and environment configuration required.
 
-## Module Docs Index
-For detailed architectural rationale, design decisions, and system mechanics, see the module docs:
-- 📖 **[Module Docs Index](docs/index.md)**
+## Module Docs
+
+Please refer to the [Module Docs Index](docs/index.md) for further details.
 ```

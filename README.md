@@ -28,7 +28,7 @@ These skills have been iteratively improved with learnings from daily use in a p
 ### [Codebase-Embedded Documentation](./codebase-embedded-docs/SKILL.md) *(Preview)*
 
 * **Purpose:** Builds, maintains, navigates, and health-checks codebase-embedded documentation using Google's Open Knowledge Format (OKF) and Andrej Karpathy's LLM patterns for curating project knowledge.
-* **When to use:** Use to initialize, ingest, query, or audit repository documentation aimed at agentic development.
+* **When to use:** Use to ingest, query, or audit repository documentation aimed at agentic development.
 * **Output:** Module-level `README.md` files, `docs/**/*.md` OKF docs pages, root `docs/index.md`, and health audit reports.
 
 ## Usage & Agent Integration
