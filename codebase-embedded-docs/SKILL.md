@@ -9,15 +9,17 @@ metadata:
 
 # Codebase-Embedded Documentation
 
-Use this skill to create, maintain, query, and health-check **codebase-embedded documentation** — curated, structured knowledge stored beside the code so agents understand how and why it is implemented.
+Use this skill to create, maintain, query, and health-check **codebase-embedded documentation** — curated, structured knowledge stored beside the code.
 
 ## Definition
 
-Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks. Docs are never mixed into source files: the global `docs/` covers cross-cutting concerns, module `docs/` covers module-specific ones, and both lean toward consolidated parent branches (see "Single vs Multiple Modules" below).
+Codebase-embedded docs **complement, not duplicate**, implementation-level docs (Swagger, Protobuf, JavaDoc — agents can scan source for signatures). They are primarily consumed by AI agents gathering context for engineering tasks.
+
+Docs are never mixed into source files: the global `docs/` covers cross-cutting concerns, module `docs/` covers module-specific ones, and both lean toward consolidated parent branches.
 
 ## Objective & Philosophy
 
-- **Complementary, Not Redundant**: Explain what source-level docs don't — *why* and high-level *how*.
+- **Complementary, Not Redundant**: Explain what source-level docs may not — the *why* and the high-level *how*.
 - **Focus on High-Level Constructs**: Design decisions, trade-offs, constraints, architecture, patterns, boundaries, data flows, and mental models.
 - **Persistent Curator Pattern**: Act as a persistent curator (Karpathy's [LLM Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)) building a compounding, interlinked knowledge graph near the code.
 
@@ -56,7 +58,7 @@ Docs live in dedicated `docs/` subdirectories beside module `README.md` files, n
 
 Organize `docs/` into documentation **categories**. For example:
 
-- `specs/`: High-level project specifications — goals, functional/non-functional requirements not captured in code.
+- `specs/`: High-level project specifications defining goals, purpose, and functional/non-functional requirements.
 - `architecture/`: High-level architecture, system overview, technology stack, architectural patterns.
 - `decisions/`: Architecture Decision Records (ADRs) — context, decision, trade-offs, consequences. Atomic, one decision each.
 - `domain/`: High-level concepts and mental models — key abstractions, business rules, constraints, stakeholders.
@@ -74,7 +76,7 @@ Detailed procedures are modularized in [`references/`](references/). Follow the 
 
 ### `ingest` — Ingest PRs, Commits, & External Docs
 
-- **Trigger**: Incorporating new architectural decisions, PR diffs, commit ranges, or external docs (RFCs, design docs, onboarding notes) into module `docs/` pages and updating `docs/index.md`.
+- **Trigger**: Incorporating new architectural decisions, conversations, PR diffs, commit ranges, or external docs (RFCs, design docs, onboarding notes) into module `docs/` pages and updating `docs/index.md`.
 - **Procedure**: See [ingest-operation.md](references/ingest-operation.md).
 
 ### `query` — Knowledge Graph Traversal & Context Building
