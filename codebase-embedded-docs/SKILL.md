@@ -19,7 +19,7 @@ Docs are never mixed into source files: the global `docs/` covers cross-cutting 
 
 ## Objective & Philosophy
 
-- **Complementary, Not Redundant**: Explain what source-level docs may not — the *why* and the high-level *how*.
+- **Complementary, Not Redundant**: Explain what source-level docs may not — the high-level *what*, *why* and *how*.
 - **Focus on High-Level Constructs**: Design decisions, trade-offs, constraints, architecture, patterns, boundaries, data flows, and mental models.
 - **Persistent Curator Pattern**: Act as a persistent curator (Karpathy's [LLM Wiki Pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)) building a compounding, interlinked knowledge graph near the code.
 

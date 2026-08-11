@@ -16,32 +16,23 @@ The `query` operation lets agents or developers navigate the codebase-embedded d
 
 ### Step 1: Parse Query Intent & Identify Scope
 
-1. Analyze the question or task topic; extract key domain terms, module names, or concepts.
-2. Determine the query type: **Module-Specific**, **Architecture / Cross-Cutting**, or **Design Record Inquiry**.
+Analyze the question or task topic; extract key domain terms, module names, or concepts.
 
 ### Step 2: Fast-Path Discovery via `docs/index.md`
 
 1. Read `<module>/README.md` for scope/usage; follow the link to `docs/index.md`.
 2. Scan the directory-heading TOC in `<module>/docs/index.md` (or root `docs/index.md`).
-3. Jump to the target OKF page without parsing unrelated files.
+3. Jump to the target OKF pages without reading unrelated files.
 4. Follow OKF metadata and links (`tags`, `type`, `description`, `related`) to complete context.
 
-### Step 3: Verify Freshness & Staleness
+### Step 3: Synthesize the Answer
 
-1. Check `stale_after` on candidate pages.
-2. If passed, inspect the `resource` file(s) (per [okf-spec.md](okf-spec.md)) or run `git log` to confirm the rationale still holds.
-
-### Step 4: Synthesize the Answer
-
-1. Answer directly, highlighting *why* decisions were made and high-level *how*.
-2. Avoid dumping code blocks or verbatim source.
-3. Provide relative links to relevant OKF pages and key source files.
+Answer directly, highlighting *why* decisions were made and high-level *how*. Avoid dumping code blocks or verbatim source. Provide relative links to relevant OKF pages and key source files.
 
 ---
 
 ## Verification Criteria
 
 - [ ] Leverages `docs/index.md` (directory-heading TOC) for fast-path discovery.
-- [ ] Synthesizes high-level *why/how*, not raw code snippets.
+- [ ] Synthesizes high-level *what/why/how*, not raw code snippets.
 - [ ] Includes relative links to OKF pages and source code.
-- [ ] Flags any stale pages encountered.
