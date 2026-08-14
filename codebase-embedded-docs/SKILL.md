@@ -100,4 +100,4 @@ Detailed procedures are modularized in [`references/`](references/). Follow the 
 
 - [okf-spec.md](references/okf-spec.md) (frontmatter schema & docs page template)
 - [index-templates.md](references/index-templates.md) (TOC templates)
-- [readme-template.md](references/readme-template.md) (module README template)
+- [readme-template.md](references/readme-template.md) (root & module README templates, incl. existing-README link section)

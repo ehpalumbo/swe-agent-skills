@@ -17,29 +17,12 @@ Top-level sections mirror the `docs/` subdirectory structure. Whenever pages or 
 
 ---
 
-## Module Docs Index Template (`<module>/docs/index.md`)
-
-```markdown
-# <Module Name> Docs
-
-> Quick discovery index. Load individual pages for full context.
-
-## <Short Name>
-
-<How the topics in this directory relate to the module: the boundaries, data flows, or mental models an agent should look for here behind the source signatures.>
-
-- [<Page Title>](<directory>/<page>.md) - <The one-sentence content summary>.
-- [<Page Title>](<directory>/<page>.md) - <How the one-sentence content summary reads>.
-```
-
----
-
 ## Global Repository Docs Index Template (`docs/index.md` at root)
 
 ```markdown
 # Repository Docs
 
-> Cross-cutting knowledge base index. Load individual pages for full context.
+> Cross-cutting knowledge base index. Read individual pages for full context.
 
 ## <Short Name>
 
@@ -52,4 +35,21 @@ Top-level sections mirror the `docs/` subdirectory structure. Whenever pages or 
 <The module indexes collected here, each scoped to a single module's domain.>
 
 - [<Module Name>](../<module>/docs/index.md) - <One-sentence summary of the module's domain and what its docs cover>.
+```
+
+---
+
+## Module Docs Index Template (`<module>/docs/index.md`)
+
+```markdown
+# <Module Name> Docs
+
+> Quick discovery index. Read individual pages for full context.
+
+## <Short Name>
+
+<How the topics in this directory relate to the module: the boundaries, data flows, or mental models an agent should look for here behind the source signatures.>
+
+- [<Page Title>](<directory>/<page>.md) - <The one-sentence content summary>.
+- [<Page Title>](<directory>/<page>.md) - <How the one-sentence content summary reads>.
 ```

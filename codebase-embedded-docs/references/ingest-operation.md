@@ -58,7 +58,7 @@ Considerations for page writing:
 ### Step 6: Update Indexes
 
 1. Refresh `**/docs/index.md` TOCs for affected modules.
-2. Ensure READMEs contain entry points to docs. Verify they link to `docs/index.md`. No OKF frontmatter.
+2. Ensure READMEs contain entry points to docs. Verify they link to `docs/index.md`. No OKF frontmatter. When initializing an undocumented repository, scaffold the root `README.md` from the template; for existing READMEs, append only the docs index link section.
 
 > See [index-templates.md](index-templates.md) and [readme-template.md](readme-template.md).
 
