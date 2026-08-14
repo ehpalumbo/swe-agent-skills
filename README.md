@@ -35,6 +35,64 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 These skills can be imported or referenced by AI agents supporting software development (such as GitHub Copilot, Claude Code, Antigravity, or custom agent systems). They provide checklists and templates that ensure consistency, prevent regressions, and align implementation choices with human expectations before any code is written.
 
+## Installation
+
+### via `gh skill` (GitHub CLI)
+
+Requires GitHub CLI v2.90.0+.
+
+```bash
+# Install a single skill (defaults to project scope, github-copilot agent)
+gh skill install ehpalumbo/swe-agent-skills software-impact-analysis
+
+# Install for a specific agent (e.g. Claude Code) at user scope
+gh skill install ehpalumbo/swe-agent-skills implementation-planning --agent claude-code --scope user
+
+# Install every skill in the repository
+gh skill install ehpalumbo/swe-agent-skills --all
+```
+
+### via `npx skills` (Vercel)
+
+```bash
+# Install a specific skill
+npx skills add ehpalumbo/swe-agent-skills --skill software-impact-analysis
+
+# Install multiple skills for a specific agent
+npx skills add ehpalumbo/swe-agent-skills --skill implementation-planning --skill codebase-embedded-docs -a claude-code
+
+# Install all skills, globally (user-level), non-interactively
+npx skills add ehpalumbo/swe-agent-skills --all -g -y
+```
+
+### Manual
+
+First, obtain the source — either clone the repository:
+
+```bash
+git clone https://github.com/ehpalumbo/swe-agent-skills.git
+```
+
+or download a snapshot from the
+[Releases](https://github.com/ehpalumbo/swe-agent-skills/releases) page
+(use the "Source code" archives) and extract it.
+
+Then copy each skill directory (e.g. `software-impact-analysis/`) into your
+agent's skills directory:
+
+```bash
+# Project scope (examples for common agents)
+cp -r swe-agent-skills/software-impact-analysis .claude/skills/
+cp -r swe-agent-skills/implementation-planning .agents/skills/
+
+# User scope
+mkdir -p ~/.copilot/skills
+cp -r swe-agent-skills/codebase-embedded-docs ~/.copilot/skills/
+```
+
+Each skill must live in its own directory containing a single `SKILL.md` (see
+[Structure Guidelines](#structure-guidelines) below).
+
 ## Contributing
 
 We welcome contributions of new software engineering skills or improvements to existing ones.
