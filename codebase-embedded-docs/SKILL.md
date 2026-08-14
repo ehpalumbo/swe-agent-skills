@@ -4,7 +4,7 @@ description: Operate codebase-embedded documentation (ingest, query, lint) follo
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "1.0.0-SNAPSHOT"
+  version: "1.0.0-beta.1"
 ---
 
 # Codebase-Embedded Documentation
