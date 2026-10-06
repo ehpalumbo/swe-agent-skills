@@ -24,7 +24,7 @@ Use this skill to conduct a thorough impact analysis when presented with a featu
 
 ## Procedure
 
-Follow these sequential steps during the analysis:
+Follow these steps during the analysis — iterate and parallelize exploration where possible:
 
 ### 1. Understand the Requirement
 
@@ -32,31 +32,19 @@ Follow these sequential steps during the analysis:
 - Extract the core objective, success criteria, and any explicit constraints (e.g., performance, technology stack, security).
 - Identify any assumptions or ambiguities in the requirement that need validation.
 
-### 2. Explore the Problem Space
+### 2. Evidence-Grounded Exploration (iterate, parallelize where possible)
 
-- Locate the relevant entry points in the codebase.
-- Analyze how the system currently handles the scenario described in the requirement.
-- Identify the modules, APIs, or data flows involved in the execution path.
+- Run parallel searches for entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas in large codebases.
+- Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `file:line` evidence; do not declare scope isolated without caller/importer check.
+- Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
+- Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
 
-### 3. Collect Sufficient Context
-
-- Search the codebase for related logic, utilities, or configurations and their callers.
-- Read existing documentation, READMEs, API specifications, and database schemas.
-- Identify existing code patterns, library dependencies, or helper functions that should be reused to maintain consistency.
-- Explore existing automated test suites and coverage for the affected codebase areas to understand how regressions are currently caught.
-
-### 4. Identify Affected Components
-
-- Map out the files, packages, database tables, or third-party APIs that will require modification, creation, or deletion.
-- Assess the scope of the change: is it local (single module) or global (cross-cutting, changing public API contracts)?
-- Document any potential side-effects or regression risks on other parts of the application.
-
-### 5. Ask Clarifying Questions to the User
+### 3. Ask Clarifying Questions to the User
 
 - Compile a list of specific, clear, and non-trivial questions to resolve open questions, ambiguity, or design trade-offs.
 - Avoid asking questions that can be answered by studying the codebase; focus on product behavior, design choices, or business logic.
 
-### 6. Evaluate Solution Approaches
+### 4. Evaluate Solution Approaches
 
 - Define at least two implementation strategies (e.g., a direct/minimal change vs. a more robust/refactored design).
 - For each approach, document:
@@ -65,7 +53,7 @@ Follow these sequential steps during the analysis:
   - Cons (technical debt, complexity, maintenance effort, etc.).
   - Risk Level (Low/Medium/High) and potential regression points.
 
-### 7. Recommend Way Forward
+### 5. Recommend Way Forward
 
 - Select the best solution approach based on the trade-offs evaluated.
 - Provide a clear, technical rationale for why this approach was chosen.
