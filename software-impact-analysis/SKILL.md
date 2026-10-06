@@ -44,9 +44,10 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 - Compile a list of specific, clear, and non-trivial questions to resolve open questions, ambiguity, or design trade-offs.
 - Avoid asking questions that can be answered by studying the codebase; focus on product behavior, design choices, or business logic.
 
-### 4. Evaluate Solution Approaches
+### 4. Evaluate Solution Approaches (risk-proportional)
 
-- Define at least two implementation strategies (e.g., a direct/minimal change vs. a more robust/refactored design).
+- Trivial / local / low-risk: one approach is enough; note rejected alternatives in one line.
+- Non-trivial / cross-cutting / API, DB, or complex bug: define at least two strategies (e.g., direct/minimal vs. robust/refactored).
 - For each approach, document:
   - High-level design and how it works.
   - Pros (simplicity, execution speed, performance, etc.).
@@ -69,8 +70,8 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
-1. Fill out all sections of the template based on your findings and analysis.
-2. Save or present the report to the user as requested.
+1. Fill out all sections of the template based on your findings and analysis. Scale depth to risk: low-risk/local changes may use a concise report (Summary + Affected Components + Verification); cross-cutting/API/DB/high-risk changes require the full template including Approaches, Security/Performance, and Rollback.
+2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
 
 ### Self-Check (before delivering)
 
