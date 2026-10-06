@@ -4,7 +4,7 @@ description: Performs a comprehensive Software Impact Analysis for a feature req
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # Software Impact Analysis
@@ -59,9 +59,9 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 
 ### 5. Recommend Way Forward
 
-- Select the best solution approach based on the trade-offs evaluated.
-- Provide a clear, technical rationale for why this approach was chosen.
-- Outline the high-level sequence of steps to execute the plan.
+- Select the best approach with technical rationale (trade-offs, scalability, maintenance).
+- Outline the high-level execution sequence only — hand off to the `implementation-planning` skill for phased tasks; do not write detailed tasks here.
+- State effort estimate (S/M/L) and rollback/migration needs if applicable.
 
 ---
 
