@@ -39,10 +39,11 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 - Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
 - Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
 
-### 3. Ask Clarifying Questions to the User
+### 3. Ask Clarifying Questions (blockers only)
 
-- Compile a list of specific, clear, and non-trivial questions to resolve open questions, ambiguity, or design trade-offs.
-- Avoid asking questions that can be answered by studying the codebase; focus on product behavior, design choices, or business logic.
+- Ask only blocking questions that change scope/design and cannot be answered from code (product behavior, design trade-offs). Max 3-5, each with a proposed default.
+- Record non-blocking ambiguities as Assumptions in the report and proceed; do not block on nice-to-know.
+- Skip questioning entirely for unambiguous bug fixes or small tasks.
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
 
@@ -91,4 +92,4 @@ Agent corrections worth remembering on every run:
 
 - **Trusting symbol names is not enough.** A function may be called from many places — always hunt down its callers before declaring a change isolated.
 - **A shared/module-level util can ripple across multiple features.** Check all importers, not just the one named in the request.
-- **Do not skip the clarifying-questions step for ambiguous requirements just because the request is short.** Product behavior and trade-offs are rarely inferable from code alone.
+- **Ask blockers, assume the rest.** Product behavior and trade-offs are rarely inferable from code — ask max 3-5 blocking questions with defaults, record the rest as Assumptions and proceed.
