@@ -62,6 +62,8 @@ Evaluate the possible approaches to address the feature request or bug fix.
 
 - **Chosen Approach:** [Approach A / Approach B]
 - **Rationale:** [Why is this the best path forward? Address trade-offs, scalability, and maintenance.]
+- **Effort Estimate:** [S / M / L, by complexity not time — S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression needed; L = high complexity, cross-cutting/architectural, migration/contract changes, extensive testing required]
+- **Assumptions:** [Non-blocking ambiguities assumed for this analysis.]
 - **Security & Performance Impact Evaluation:**
   - **Security:** [Assess vulnerability vectors, data exposure risks, authentication/authorization changes, or new third-party dependencies.]
   - **Performance:** [Assess potential database query latency, resource overhead, caching changes, or scaling issues.]

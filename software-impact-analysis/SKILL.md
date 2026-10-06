@@ -41,16 +41,17 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 - Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. Note existing tests covering affected areas and coverage gaps.
 - Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
 
-### 3. Ask Clarifying Questions (blockers only)
+### 3. Ask Clarifying Questions
 
-- Ask only blocking questions that change scope/design and cannot be answered from code (product behavior, design trade-offs). Max 3-5, each with a proposed default.
-- Record non-blocking ambiguities as Assumptions in the report and proceed; do not block on nice-to-know.
-- Skip questioning entirely for unambiguous bug fixes or small tasks.
+- Be thorough when eliciting: ask whatever is needed to resolve ambiguity in scope, behavior, constraints, or design trade-offs that cannot be answered from code/search. No fixed cap — group related questions.
+- Include a proposed default with each question where possible.
+- Record any remaining ambiguities as Assumptions (§4) in the report.
+- Skip questioning only when the requirement is truly unambiguous with no open decisions.
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
 
-- Trivial / local / low-risk: one approach is enough; note rejected alternatives in one line.
-- Non-trivial / cross-cutting / API, DB, or complex bug: define at least two strategies (e.g., direct/minimal vs. robust/refactored).
+- Trivial / local AND low-risk (no security, auth/crypto/access-control, data-migration, or public-API-contract impact): one approach is enough; note rejected alternatives in one line.
+- Everything else — non-trivial / cross-cutting / API, DB, or complex bug, OR any security-sensitive / auth / crypto / access-control / migration change regardless of size: define at least two strategies (e.g., direct/minimal vs. robust/refactored).
 - For each approach, document:
   - High-level design and how it works.
   - Pros (simplicity, execution speed, performance, etc.).
@@ -61,7 +62,7 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 
 - Select the best approach with technical rationale (trade-offs, scalability, maintenance).
 - Outline the high-level execution sequence only — hand off to the `implementation-planning` skill for phased tasks; do not write detailed tasks here.
-- State effort estimate (S/M/L) and rollback/migration needs if applicable.
+- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record in §4 Recommended Way Forward.
 
 ---
 
@@ -73,7 +74,7 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
-1. Fill out all sections of the template based on your findings and analysis. Scale depth to risk: low-risk/local changes may use a concise report (Summary + Affected Components + Verification); cross-cutting/API/DB/high-risk changes require the full template including Approaches, Security/Performance, and Rollback.
+1. Fill out all *applicable* sections of the template based on your findings and analysis. Risk tiering takes precedence over completeness: low-risk/local changes (no security, auth/crypto/access-control, data-migration, or public-API-contract impact) may use a concise report (Executive Summary + Affected Components + Verification & Testing Plan); cross-cutting/API/DB/high-risk changes — and any security-sensitive, auth/crypto/access-control, or migration change regardless of size — require the full template including Approaches, Security/Performance, and Rollback.
 2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
 
 ### Self-Check (before delivering)
@@ -94,4 +95,4 @@ Agent corrections worth remembering on every run:
 
 - **Trusting symbol names is not enough.** A function may be called from many places — always hunt down its callers before declaring a change isolated.
 - **A shared/module-level util can ripple across multiple features.** Check all importers, not just the one named in the request.
-- **Ask blockers, assume the rest.** Product behavior and trade-offs are rarely inferable from code — ask max 3-5 blocking questions with defaults, record the rest as Assumptions and proceed.
+- **Elicit thoroughly, assume explicitly.** Product behavior and trade-offs are rarely inferable from code — ask whatever is needed with defaults where possible, record remaining ambiguities as Assumptions.
