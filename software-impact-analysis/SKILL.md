@@ -37,6 +37,8 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 - Run parallel searches for entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas in large codebases.
 - Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `file:line` evidence; do not declare scope isolated without caller/importer check.
 - Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
+- Check git history (`log`, `blame`, recent PRs) for churn and hotspots in affected areas to calibrate risk.
+- Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. Note existing tests covering affected areas and coverage gaps.
 - Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
 
 ### 3. Ask Clarifying Questions (blockers only)
