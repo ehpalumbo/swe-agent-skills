@@ -80,9 +80,9 @@ Load the report template from [`assets/report-template.md`](assets/report-templa
 
 Before presenting the report:
 
-- Verify that every file, symbol, and table listed in the "Affected Components" table actually exists in the codebase.
-- Verify that every "Remaining Open Question" is genuinely unanswerable from code — if it can be resolved by studying the codebase, resolve it instead of deferring it.
-- Re-walk the codebase for any component that was not directly verified (e.g., relying on a symbol name without confirming its callers or importers).
+- Every affected file cites a verified `path:line` on disk; every symbol was confirmed via caller/importer search, not inferred from its name.
+- Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
+- No placeholders (`[file/path]`, TBD) remain; omitted subsections are intentional per risk tier, not incomplete work.
 
 Fix any discrepancies and repeat until the report passes all checks before finalizing.
 
