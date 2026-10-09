@@ -24,22 +24,21 @@ Use this skill to conduct a thorough impact analysis when presented with a featu
 
 ## Procedure
 
-Follow these steps during the analysis — iterate and parallelize exploration where possible:
+Follow these steps in order; parallel exploration and iteration happen inside §2–§3.
 
 ### 1. Understand the Requirement
 
-- Analyze the user request, bug report, or issue description.
-- Extract the core objective, success criteria, and any explicit constraints (e.g., performance, technology stack, security).
-- Identify any assumptions or ambiguities in the requirement that need validation.
+- Extract the objective, success criteria, and explicit constraints (performance, technology stack, security) from the request or bug report.
+- List the assumptions and ambiguities that need validation — these feed §3 and the report's Assumptions.
 
-### 2. Evidence-Grounded Exploration (iterate, parallelize where possible)
+### 2. Evidence-Grounded Exploration
 
-- Run parallel searches for entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas in large codebases.
+- Explore in parallel: entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas such as separate subsystems.
 - Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `path:line` evidence per affected component (Evidence column of the report's Affected Components table); do not declare scope isolated without caller/importer check.
 - Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
 - Check git history (`log`, `blame`, recent PRs) for churn and hotspots in affected areas to calibrate risk.
-- Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. If the bug cannot be reproduced in the current environment, record the attempted repro steps, the blocker, and proceed with the analysis at reduced confidence rather than skipping verification. Note existing tests covering affected areas and coverage gaps.
-- Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
+- Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. If the bug cannot be reproduced in the current environment, record the attempted repro steps, the blocker, and proceed at reduced confidence rather than skipping verification. Note existing tests covering affected areas and coverage gaps.
+- Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded.
 
 ### 3. Ask Clarifying Questions
 
