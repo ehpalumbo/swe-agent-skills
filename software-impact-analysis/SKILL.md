@@ -43,10 +43,10 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 
 ### 3. Ask Clarifying Questions
 
-- Be thorough when eliciting: ask whatever is needed to resolve ambiguity in scope, behavior, constraints, or design trade-offs that cannot be answered from code/search. No fixed cap — group related questions.
-- Include a proposed default with each question where possible.
-- Record any remaining ambiguities as Assumptions (report §4) in the report.
-- Skip questioning only when the requirement is truly unambiguous with no open decisions.
+- Ask whatever is needed to resolve ambiguity in scope, behavior, constraints, or design trade-offs that cannot be answered from code or search. There is no fixed cap — ask as you go rather than saving questions for the end, grouping related ones.
+- Give each question a proposed default. A default lets the user confirm quickly and keeps the session moving instead of stalling on every open decision.
+- Record ambiguities that survive the conversation as Assumptions (report §4).
+- Skip questioning only when the requirement is unambiguous with no open decisions.
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
 
