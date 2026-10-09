@@ -1,10 +1,10 @@
 ---
 name: software-impact-analysis
-description: Performs a comprehensive Software Impact Analysis for a feature request or bug fix on an existing codebase. Helps identify affected components, explore solution alternatives, evaluate risks, ask clarifying questions, and document the recommended way forward.
+description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Not for greenfield scaffolding or for writing the implementation plan itself (see `implementation-planning`).
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "1.2.0"
+  version: "2.0.0"
 ---
 
 # Software Impact Analysis
