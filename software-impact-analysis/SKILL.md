@@ -50,8 +50,8 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
 
-- Trivial / local AND low-risk (no security, auth/crypto/access-control, data-migration, or public-API-contract impact): one approach is enough; note rejected alternatives in one line.
-- Everything else — non-trivial / cross-cutting / API, DB, or complex bug, OR any security-sensitive / auth / crypto / access-control / migration change regardless of size: define at least two strategies (e.g., direct/minimal vs. robust/refactored).
+- **Tier 1 — concise:** trivial or local, with no security, auth/crypto/access-control, data-migration, or public-API-contract impact. One approach is enough; note rejected alternatives in one line.
+- **Tier 2 — full:** everything else — non-trivial, cross-cutting, API, DB, or complex bug, plus any security-sensitive, auth/crypto/access-control, or migration change regardless of size. Define at least two strategies (e.g., direct/minimal vs. robust/refactored).
 - For each approach, document:
   - High-level design and how it works.
   - Pros (simplicity, execution speed, performance, etc.).
@@ -74,9 +74,10 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
-1. Fill out all *applicable* sections of the template based on your findings and analysis. Risk tiering (as defined in §4) takes precedence over completeness:
-   - **Low-risk/local tier** (trivial or local, and no security, auth/crypto/access-control, data-migration, or public-API-contract impact): a concise report is sufficient — Executive Summary, Affected Components, and Verification & Testing Plan. The Executive Summary must still carry the Effort Estimate and the Assumptions from §3/§5, so those two items are never dropped.
-   - **Full tier** (everything else — non-trivial, cross-cutting, API, DB, or complex bug, plus any security-sensitive, auth/crypto/access-control, or migration change regardless of size): the full template, including Approaches, Security/Performance, and Rollback.
+1. Fill out the applicable sections of the template. Depth follows the tiers defined in §4:
+   - **Tier 1 (concise):** Executive Summary, Affected Components, and Verification & Testing Plan are sufficient.
+   - **Tier 2 (full):** the full template, including Approaches, Security/Performance, and Rollback.
+   Regardless of tier, the report must carry an Effort Estimate and Assumptions — never drop them for brevity.
 2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
 
 ### Self-Check (before delivering)
@@ -85,9 +86,9 @@ Before presenting the report:
 
 - Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
 - Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per risk tier, not incomplete work.
+- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the §4 tiers, not incomplete work.
 
-Fix any discrepancies and repeat until the report passes all checks before finalizing.
+Run this checklist once before presenting the report.
 
 ---
 
@@ -97,4 +98,3 @@ Agent corrections worth remembering on every run:
 
 - **Trusting symbol names is not enough.** A function may be called from many places — always hunt down its callers before declaring a change isolated.
 - **A shared/module-level util can ripple across multiple features.** Check all importers, not just the one named in the request.
-- **Elicit thoroughly, assume explicitly.** Product behavior and trade-offs are rarely inferable from code — ask whatever is needed with defaults where possible, record remaining ambiguities as Assumptions.
