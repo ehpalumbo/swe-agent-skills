@@ -24,12 +24,12 @@ Use this skill to conduct a thorough impact analysis when presented with a featu
 
 ## Procedure
 
-Follow these steps in order; parallel exploration and iteration happen inside §2–§3.
+Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code cannot answer, then re-explore. Advance to step 4 only when the affected set and the requirement are both stable.
 
 ### 1. Understand the Requirement
 
 - Extract the objective, success criteria, and explicit constraints (performance, technology stack, security) from the request or bug report.
-- List the assumptions and ambiguities that need validation — these feed §3 and the report's Assumptions.
+- List the assumptions and ambiguities that need validation — these feed the clarifying-question step and the report's Assumptions.
 
 ### 2. Evidence-Grounded Exploration
 
@@ -44,7 +44,8 @@ Follow these steps in order; parallel exploration and iteration happen inside §
 
 - Ask whatever is needed to resolve ambiguity in scope, behavior, constraints, or design trade-offs that cannot be answered from code or search. There is no fixed cap — ask as you go rather than saving questions for the end, grouping related ones.
 - Give each question a proposed default. A default lets the user confirm quickly and keeps the session moving instead of stalling on every open decision.
-- Record ambiguities that survive the conversation as Assumptions (report §4).
+- If the user cannot or does not answer (e.g., a non-interactive session), adopt your proposed defaults and record each as an Assumption — do not stall, and do not silently drop the question.
+- Record ambiguities that survive the conversation as Assumptions (Recommended Way Forward section of the report).
 - Skip questioning only when the requirement is unambiguous with no open decisions.
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
@@ -61,7 +62,7 @@ Follow these steps in order; parallel exploration and iteration happen inside §
 
 - Select the best approach with technical rationale (trade-offs, scalability, maintenance).
 - Outline the high-level execution sequence only — hand off to the `implementation-planning` skill for phased tasks; do not write detailed tasks here.
-- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record in report §4 Recommended Way Forward.
+- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record all of this in the report's Recommended Way Forward section.
 
 ---
 
@@ -73,7 +74,7 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
-1. Fill out the applicable sections of the template. Depth follows the tiers defined in §4:
+1. Fill out the applicable sections of the template. Depth follows the tiers defined in step 4:
    - **Tier 1 (concise):** Executive Summary, Affected Components, and Verification & Testing Plan are sufficient.
    - **Tier 2 (full):** the full template, including Approaches, Security/Performance, and Rollback.
    Regardless of tier, the report must carry an Effort Estimate and Assumptions — never drop them for brevity.
@@ -85,7 +86,7 @@ Before presenting the report:
 
 - Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
 - Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the §4 tiers, not incomplete work.
+- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
 
 Run this checklist once before presenting the report.
 
