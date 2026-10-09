@@ -35,17 +35,17 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 ### 2. Evidence-Grounded Exploration (iterate, parallelize where possible)
 
 - Run parallel searches for entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas in large codebases.
-- Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `file:line` evidence; do not declare scope isolated without caller/importer check.
+- Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `path:line` evidence per affected component (Evidence column of the report's Affected Components table); do not declare scope isolated without caller/importer check.
 - Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
 - Check git history (`log`, `blame`, recent PRs) for churn and hotspots in affected areas to calibrate risk.
-- Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. Note existing tests covering affected areas and coverage gaps.
+- Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. If the bug cannot be reproduced in the current environment, record the attempted repro steps, the blocker, and proceed with the analysis at reduced confidence rather than skipping verification. Note existing tests covering affected areas and coverage gaps.
 - Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded; do not exhaustively read the repo for local changes.
 
 ### 3. Ask Clarifying Questions
 
 - Be thorough when eliciting: ask whatever is needed to resolve ambiguity in scope, behavior, constraints, or design trade-offs that cannot be answered from code/search. No fixed cap — group related questions.
 - Include a proposed default with each question where possible.
-- Record any remaining ambiguities as Assumptions (§4) in the report.
+- Record any remaining ambiguities as Assumptions (report §4) in the report.
 - Skip questioning only when the requirement is truly unambiguous with no open decisions.
 
 ### 4. Evaluate Solution Approaches (risk-proportional)
@@ -62,7 +62,7 @@ Follow these steps during the analysis — iterate and parallelize exploration w
 
 - Select the best approach with technical rationale (trade-offs, scalability, maintenance).
 - Outline the high-level execution sequence only — hand off to the `implementation-planning` skill for phased tasks; do not write detailed tasks here.
-- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record in §4 Recommended Way Forward.
+- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record in report §4 Recommended Way Forward.
 
 ---
 
@@ -74,16 +74,18 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
-1. Fill out all *applicable* sections of the template based on your findings and analysis. Risk tiering takes precedence over completeness: low-risk/local changes (no security, auth/crypto/access-control, data-migration, or public-API-contract impact) may use a concise report (Executive Summary + Affected Components + Verification & Testing Plan); cross-cutting/API/DB/high-risk changes — and any security-sensitive, auth/crypto/access-control, or migration change regardless of size — require the full template including Approaches, Security/Performance, and Rollback.
+1. Fill out all *applicable* sections of the template based on your findings and analysis. Risk tiering (as defined in §4) takes precedence over completeness:
+   - **Low-risk/local tier** (trivial or local, and no security, auth/crypto/access-control, data-migration, or public-API-contract impact): a concise report is sufficient — Executive Summary, Affected Components, and Verification & Testing Plan. The Executive Summary must still carry the Effort Estimate and the Assumptions from §3/§5, so those two items are never dropped.
+   - **Full tier** (everything else — non-trivial, cross-cutting, API, DB, or complex bug, plus any security-sensitive, auth/crypto/access-control, or migration change regardless of size): the full template, including Approaches, Security/Performance, and Rollback.
 2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
 
 ### Self-Check (before delivering)
 
 Before presenting the report:
 
-- Every affected file cites a verified `path:line` on disk; every symbol was confirmed via caller/importer search, not inferred from its name.
+- Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
 - Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- No placeholders (`[file/path]`, TBD) remain; omitted subsections are intentional per risk tier, not incomplete work.
+- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per risk tier, not incomplete work.
 
 Fix any discrepancies and repeat until the report passes all checks before finalizing.
 

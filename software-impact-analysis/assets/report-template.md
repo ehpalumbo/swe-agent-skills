@@ -14,7 +14,7 @@
 
 ## Executive Summary
 
-[A concise, one-paragraph summary of the proposed changes, the recommended approach, and any critical risks or dependencies identified.]
+[A concise summary of the proposed changes, the recommended approach, and any critical risks or dependencies identified.]
 
 ---
 
@@ -62,7 +62,7 @@ Evaluate the possible approaches to address the feature request or bug fix.
 
 - **Chosen Approach:** [Approach A / Approach B]
 - **Rationale:** [Why is this the best path forward? Address trade-offs, scalability, and maintenance.]
-- **Effort Estimate:** [S / M / L, by complexity not time — S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression needed; L = high complexity, cross-cutting/architectural, migration/contract changes, extensive testing required]
+- **Effort Estimate:** [S / M / L, by complexity not time]
 - **Assumptions:** [Non-blocking ambiguities assumed for this analysis.]
 - **Security & Performance Impact Evaluation:**
   - **Security:** [Assess vulnerability vectors, data exposure risks, authentication/authorization changes, or new third-party dependencies.]
@@ -78,10 +78,10 @@ Evaluate the possible approaches to address the feature request or bug fix.
 
 Detail the specific codebase components that are expected to be modified, created, or deleted.
 
-| File / Component Path | Action | Description of Change |
-| :--- | :--- | :--- |
-| `[file/path]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
-| `[file/path]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
+| File / Component Path | Evidence (path:line) | Action | Description of Change |
+| :--- | :--- | :--- | :--- |
+| `[file/path]` | `[path/to/file.ext:42]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
+| `[file/path]` | `[path/to/file.ext:87]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
 
 ### Database & Schema Changes
 

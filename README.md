@@ -17,7 +17,7 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 * **Purpose:** Pre-code analysis to evaluate requirements, map affected files/symbols, assess side effects, and propose technical design options.
 * **When to use:** Use before implementing any feature request, bug fix, or refactoring.
-* **Output:** A structured impact analysis report detailing pros/cons of proposed approaches, regression risks, and open questions.
+* **Output:** A structured impact analysis report — scaled to the risk tier, from a concise summary of affected components to a full report with pros/cons of proposed approaches, regression risks, and open questions.
 
 ### [Implementation Planning](./implementation-planning/SKILL.md)
 
