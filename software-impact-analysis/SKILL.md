@@ -1,6 +1,6 @@
 ---
 name: software-impact-analysis
-description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Not for greenfield scaffolding or for writing the implementation plan itself (see `implementation-planning`).
+description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Not for greenfield scaffolding and not for planning the implementation itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
@@ -52,6 +52,7 @@ Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code 
 
 - **Tier 1 — concise:** trivial or local, with no security, auth/crypto/access-control, data-migration, or public-API-contract impact. One approach is enough; note rejected alternatives in one line.
 - **Tier 2 — full:** everything else — non-trivial, cross-cutting, API, DB, or complex bug, plus any security-sensitive, auth/crypto/access-control, or migration change regardless of size. Define at least two strategies (e.g., direct/minimal vs. robust/refactored).
+- Consider genuinely distinct approaches and solution designs rather than defaulting to the first idea that comes to mind. Prefer the robust approach in every case: one that fixes root causes, follows existing patterns, and preserves long-term maintainability and correctness. Shortcuts are never welcome and may only be weighed as alternatives when the change is trivial — never trade security, correctness, or maintainability for speed or smaller diff.
 - For each approach, document:
   - High-level design and how it works.
   - Pros (simplicity, execution speed, performance, etc.).
@@ -61,7 +62,7 @@ Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code 
 ### 5. Recommend Way Forward
 
 - Select the best approach with technical rationale (trade-offs, scalability, maintenance).
-- Outline the high-level execution sequence only — hand off to the `implementation-planning` skill for phased tasks; do not write detailed tasks here.
+- Outline the high-level execution sequence only. Planning how to implement it (phased tasks, task breakdown) is out of scope here — leave it to the user's preferred planning approach; do not write detailed tasks here.
 - State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record all of this in the report's Recommended Way Forward section.
 
 ---
