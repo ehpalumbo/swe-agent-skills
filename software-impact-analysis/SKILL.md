@@ -1,6 +1,6 @@
 ---
 name: software-impact-analysis
-description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Also suited for revisiting and rewriting a prior analysis when decisions are challenged or scope changes. Not for greenfield scaffolding and not for planning the implementation itself.
+description: Conduct a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — map affected components with evidence, elicit open decisions with proposed defaults, and recommend an approach with a verification plan. Also suited for revisiting and rewriting a prior analysis when decisions are challenged or scope changes. Not for greenfield scaffolding and not for planning the implementation itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
@@ -80,7 +80,7 @@ Load the report template from [`assets/report-template.md`](assets/report-templa
    - **Tier 1 (concise):** Executive Summary, Affected Components, and Verification & Testing Plan are sufficient.
    - **Tier 2 (full):** the full template, including Approaches, Security/Performance, and Rollback.
    Regardless of tier, the report must carry an Effort Estimate and Assumptions — never drop them for brevity.
-2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
+2. Save the report where the user asks; otherwise save under `docs/impact-analyses/<feature-or-bug-id>.md`. Omit inapplicable subsections instead of filling with placeholders.
 
 ### Updating an Existing Report
 
@@ -92,13 +92,11 @@ The report is the single source of truth for the current state of the analysis, 
 
 ### Self-Check (before delivering)
 
-Before presenting the report:
+Run this checklist once, fix what fails, and repeat until it passes:
 
-- Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
-- Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
-
-Run this checklist once before presenting the report.
+- [ ] Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
+- [ ] Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
+- [ ] No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
 
 ---
 
