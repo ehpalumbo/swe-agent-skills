@@ -12,10 +12,10 @@
 
 ## References
 
-Quick links to the documents behind this plan — the root artifact doubles as the entry point for later sessions:
+Quick links to the inputs behind this plan — the root artifact doubles as the entry point for later sessions:
 
-- [Software Impact Analysis: Title](path/to/analysis_report)
-- [Supporting Document / Analysis Report Title](path/to/supporting_documentation)
+- [Requirements / specification / prior analysis: Title](path/to/source_document)
+- [Supporting document: Title](path/to/supporting_documentation)
 
 ---
 
@@ -33,7 +33,7 @@ Quick links to the documents behind this plan — the root artifact doubles as t
 
 ---
 
-<!-- When Phased: keep the Phase Index and move all tasks into per-phase files (see phase-template.md); delete the Task Details section below. -->
+<!-- When Single file: delete the Phase Index below and keep Task Details. When Phased: keep the Phase Index and move all tasks into per-phase files (see phase-template.md); delete the Task Details section below. -->
 
 ## Phase Index
 
@@ -44,15 +44,19 @@ Quick links to the documents behind this plan — the root artifact doubles as t
 
 ## Configuration & Environment Updates
 
-- **Environment Variables:** [new/modified .env variables, or "None"]
-- **Feature Flags:** [feature toggles gating the change, or "None"]
-- **External Dependencies:** [new dependencies, packages or library upgrades, or "None"]
+<!-- Omit this section or any item with nothing to report; never write "None". -->
+
+- **Environment Variables:** [new/modified .env variables]
+- **Feature Flags:** [feature toggles gating the change]
+- **External Dependencies:** [new dependencies, packages or library upgrades]
 
 ---
 
 ## Task Details
 
-### [Component / Layer Name, e.g., Database, Backend, Frontend]
+<!-- Group tasks into increments below. One increment = one reviewable commit. Add one `### Increment N` section per commit. -->
+
+### Increment 1: [outcome this commit delivers]
 
 #### 1. [Imperative Task Title, e.g., Implement authentication middleware]
 
@@ -66,16 +70,7 @@ Quick links to the documents behind this plan — the root artifact doubles as t
   - [ ] [Observable outcome, e.g., Middleware returns 401 Unauthorized for invalid tokens]
   - [ ] [Observable outcome, e.g., Middleware attaches the user object to the request context]
 
-#### 2. [Imperative Task Title]
-
-- **Prerequisites / Dependencies:** [e.g., None]
-- **Affected Files:**
-  - [file_basename](relative/file/path)
-- **Affected Symbols:**
-  - `SymbolName`
-- **Description:** [Concise description of what to do and how to implement it.]
-- **Acceptance Criteria:**
-  - [ ] [Observable outcome]
+<!-- Repeat the `####` task block for each further task in this increment; add further `### Increment N` sections, one per commit. -->
 
 ---
 
