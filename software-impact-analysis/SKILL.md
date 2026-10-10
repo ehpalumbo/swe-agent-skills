@@ -1,6 +1,6 @@
 ---
 name: software-impact-analysis
-description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Not for greenfield scaffolding and not for planning the implementation itself.
+description: Conducts a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — maps affected components with evidence, elicits open decisions with proposed defaults, and recommends an approach with a verification plan. Also suited for revisiting and rewriting a prior analysis when decisions are challenged or scope changes. Not for greenfield scaffolding and not for planning the implementation itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
@@ -19,12 +19,13 @@ Use this skill to conduct a thorough impact analysis when presented with a featu
 - **Bug Fixes:** Before making code modifications to resolve a bug, to verify we fix the root cause and avoid introducing regressions.
 - **Refactoring & Architectural Changes:** When modifying internal structures, APIs, or database schemas.
 - **Ambiguous Requirements:** When a task is high-level or underspecified, prompting the need to explore the codebase and ask clarifying questions first.
+- **Revisiting an Analysis:** When the user challenges or revises decisions from a prior analysis (new information, changed scope or constraints), re-run the process and rewrite the report.
 
 ---
 
 ## Procedure
 
-Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code cannot answer, then re-explore. Advance to step 4 only when the affected set and the requirement are both stable.
+Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code cannot answer, then re-explore. Advance to step 4 only when the affected set and the requirement are both stable. Re-run the procedure from step 1 whenever prior decisions are challenged or the requirement changes.
 
 ### 1. Understand the Requirement
 
@@ -80,6 +81,14 @@ Load the report template from [`assets/report-template.md`](assets/report-templa
    - **Tier 2 (full):** the full template, including Approaches, Security/Performance, and Rollback.
    Regardless of tier, the report must carry an Effort Estimate and Assumptions — never drop them for brevity.
 2. Save or present the report to the user as requested. Omit inapplicable subsections instead of filling with placeholders.
+
+### Updating an Existing Report
+
+The report is the single source of truth for the current state of the analysis, not a historical record. When revisiting a prior analysis — the user challenges a decision, scope or constraints change, or new exploration invalidates earlier findings:
+
+- Re-run the procedure from step 1 and rewrite the report as needed. The delivered report must read as a standalone analysis; superseded content is deleted and replaced. A reader should never have to reconstruct which parts are still valid.
+- Do not turn the report into a changelog: no struck-through text, no "Updated:" / "Previously assumed…" notes, no revision history sections. Where a decision changed, state only the new decision and its rationale.
+- Carry forward only findings and decisions that survive re-verification. Re-check evidence with fresh `path:line` lookups rather than trusting the prior report's citations.
 
 ### Self-Check (before delivering)
 
