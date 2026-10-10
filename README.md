@@ -24,7 +24,6 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 * **Purpose:** Translates approved requirements or impact analyses into concrete, step-by-step development tasks.
 * **When to use:** Use after the design/approach is approved to plan coding execution in reviewable increments.
-* **Plan sizing:** Single plan file by default; phased index + phase files only when the work exceeds one reviewable commit. Every task pairs with the tests that verify it — tests are never batched into a final phase.
 * **Output:** Tasks with affected files/symbols, checkbox acceptance criteria naming observable outcomes, and verification steps.
 
 ### [Codebase-Embedded Documentation](./codebase-embedded-docs/SKILL.md) *(Preview)*
