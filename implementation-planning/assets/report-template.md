@@ -4,52 +4,67 @@
 
 - **Author:** [Agent Name / ID]
 - **Date:** [YYYY-MM-DD]
-- **Phased Implementation:** [Yes / No]
+- **Structure:** [Single file / Phased (N phases)]
 
-### References [Links to supporting documents / analysis reports]
-
-- e.g., [Supporting Document / Analysis Report Title](path/to/document_name)
+<!-- Omit inapplicable sections instead of filling them with placeholder text. -->
 
 ---
 
-## Executive Summary & Architecture
+## References
 
-[Provide a summary of the proposed changes, the confirmed architecture, and any system constraints.]
+Quick links to the documents behind this plan — the root artifact doubles as the entry point for later sessions:
+
+- [Software Impact Analysis: Title](../reports/report_name.md)
+- [Supporting Document / Analysis Report Title](path/to/document_name)
 
 ---
 
-<!-- If Phased Implementation is Yes, include the Phase Index below. Otherwise, remove it. -->
+## Executive Summary
+
+[Summary of the proposed changes and the confirmed approach.]
+
+### Architecture
+
+[Optional. Key structural decisions, components touched, and system constraints.]
+
+### Assumptions
+
+[Optional. Decisions adopted without user confirmation — e.g., proposed defaults taken during a non-interactive session.]
+
+---
+
+<!-- When Phased: keep the Phase Index and move all tasks into per-phase files (see phase-template.md); delete the Task Details section below. -->
+
 ## Phase Index
 
-- **[Phase 1: Title]** - [Succinct description] - [Link to phase_1.md](phases/phase_1_plan.md)
-- **[Phase 2: Title]** - [Succinct description] - [Link to phase_2.md](phases/phase_2_plan.md)
+- **[Phase 1: Title]** - [one-line outcome] - [phase_1_plan.md](phases/phase_1_plan.md)
+- **[Phase 2: Title]** - [one-line outcome] - [phase_2_plan.md](phases/phase_2_plan.md)
 
 ---
 
 ## Configuration & Environment Updates
 
-- **Environment Variables:** [State new/modified .env variables, e.g., API_KEY, DB_PASSWORD. If none, write "None".]
-- **Feature Flags:** [State if any feature toggles are required to gate the changes. If none, write "None".]
-- **External Dependencies:** [List any new npm packages, pip packages, or library upgrades needed. If none, write "None".]
+- **Environment Variables:** [new/modified .env variables, or "None"]
+- **Feature Flags:** [feature toggles gating the change, or "None"]
+- **External Dependencies:** [new npm/pip packages or library upgrades, or "None"]
 
 ---
 
 ## Task Details
-<!-- If Phased, this section is represented in each phase's separate file. If Not Phased, list the tasks here. -->
 
 ### [Component / Layer Name, e.g., Database, Backend, Frontend]
 
 #### 1. [Imperative Task Title, e.g., Implement authentication middleware]
 
-- **Prerequisites / Dependencies:** [e.g., None, or "Database migration in Task X"]
+- **Prerequisites / Dependencies:** [e.g., None, or "Task 2 in this plan" — include any deferred-test dependency here]
 - **Affected Files:**
-  - [file_basename](relative/path/to/affected_file)
+  - [file_basename](relative/path/to/affected_file) - [NEW / MODIFY]
 - **Affected Symbols:**
-  - `ClassName` or `method_name` or `database_table`
+  - `ClassName` / `method_name()` / `database_table`
 - **Description:** [Concise description of what to do and how to implement it.]
 - **Acceptance Criteria:**
-  - [ ] [Criterion 1, e.g., Middleware returns 401 Unauthorized for invalid tokens]
-- [ ] [Criterion 2, e.g., Middleware attaches user object to request context]
+  - [ ] [Observable outcome, e.g., Middleware returns 401 Unauthorized for invalid tokens]
+  - [ ] [Observable outcome, e.g., Middleware attaches the user object to the request context]
 
 #### 2. [Imperative Task Title]
 
@@ -60,16 +75,16 @@
   - `SymbolName`
 - **Description:** [Concise description of what to do and how to implement it.]
 - **Acceptance Criteria:**
-  - [ ] [Criterion 1]
+  - [ ] [Observable outcome]
 
 ---
 
-## Verification Plan (Whole Feature Verification)
-<!-- Note: This verification plan is for checking the whole feature. Every individual task in the plan must also be verified by checking that it meets its specific acceptance criteria. -->
+## Verification Plan (Whole Feature)
+<!-- This plan covers the whole feature. Every individual task is also verified against its own acceptance criteria. -->
 
 ### Automated Tests
 
-[Describe unit, integration, or E2E tests to create/update]
+[Unit, integration, or E2E tests to create/update, each mapped to the task it verifies]
 
 ### Manual Verification Steps
 

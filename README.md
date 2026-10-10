@@ -22,9 +22,9 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 ### [Implementation Planning](./implementation-planning/SKILL.md)
 
-* **Purpose:** Translates requirements or impact analyses into concrete, step-by-step development tasks.
-* **When to use:** Use after design/architecture is approved to plan coding execution in manageable, reviewable slices.
-* **Output:** An actionable implementation plan listing tasks with affected files, clear acceptance criteria, and verification steps.
+* **Purpose:** Translates approved requirements or impact analyses into concrete, step-by-step development tasks.
+* **When to use:** Use after the design/approach is approved to plan coding execution in reviewable increments.
+* **Output:** Tasks with affected files/symbols, checkbox acceptance criteria naming observable outcomes, and verification steps.
 
 ### [Codebase-Embedded Documentation](./codebase-embedded-docs/SKILL.md) *(Preview)*
 
