@@ -5,15 +5,31 @@
 - **Author:** [Agent Name / ID]
 - **Date:** [YYYY-MM-DD]
 - **Structure:** [Single file / Phased (N phases)]
-- **References:** [e.g., [Software Impact Analysis: Title](../reports/report_name.md)]
 
 <!-- Omit inapplicable sections instead of filling them with placeholder text. -->
 
 ---
 
-## Executive Summary & Architecture
+## References
 
-[Summary of the proposed changes, the confirmed approach, and system constraints. Record assumptions adopted in a non-interactive session here.]
+Quick links to the documents behind this plan — the root artifact doubles as the entry point for later sessions:
+
+- [Software Impact Analysis: Title](../reports/report_name.md)
+- [Supporting Document / Analysis Report Title](path/to/document_name)
+
+---
+
+## Executive Summary
+
+[Summary of the proposed changes and the confirmed approach.]
+
+### Architecture
+
+[Optional. Key structural decisions, components touched, and system constraints.]
+
+### Assumptions
+
+[Optional. Decisions adopted without user confirmation — e.g., proposed defaults taken during a non-interactive session.]
 
 ---
 
