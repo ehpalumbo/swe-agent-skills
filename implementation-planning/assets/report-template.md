@@ -4,7 +4,7 @@
 
 - **Author:** [Agent Name / ID]
 - **Date:** [YYYY-MM-DD]
-- **Structure:** [Single file / Phased (N phases)]
+- **Structure:** [Single increment / N increments]
 
 <!-- Omit inapplicable sections instead of filling them with placeholder text. -->
 
@@ -33,12 +33,12 @@ Quick links to the inputs behind this plan — the root artifact doubles as the 
 
 ---
 
-<!-- When Single file: delete the Phase Index below and keep Task Details. When Phased: keep the Phase Index and move all tasks into per-phase files (see phase-template.md); delete the Task Details section below. -->
+<!-- When single increment: delete the Increment Index below and keep Task Details. When multi-increment: keep the Increment Index and move all tasks into per-increment files (see increment-template.md); delete the Task Details section below. -->
 
-## Phase Index
+## Increment Index
 
-- **[Phase 1: Title]** - [one-line outcome] - [phase_1_plan.md](phases/phase_1_plan.md)
-- **[Phase 2: Title]** - [one-line outcome] - [phase_2_plan.md](phases/phase_2_plan.md)
+- **[Increment 1: Title]** - [one-line outcome] - [increment_1_plan.md](increments/increment_1_plan.md)
+- **[Increment 2: Title]** - [one-line outcome] - [increment_2_plan.md](increments/increment_2_plan.md)
 
 ---
 
@@ -54,11 +54,9 @@ Quick links to the inputs behind this plan — the root artifact doubles as the 
 
 ## Task Details
 
-<!-- Group tasks into increments below. One increment = one reviewable commit. Add one `### Increment N` section per commit. -->
+<!-- Single-increment plans: keep this section with all tasks below. Multi-increment plans: delete this section and move all tasks into per-increment files (see increment-template.md). -->
 
-### Increment 1: [outcome this commit delivers]
-
-#### 1. [Imperative Task Title, e.g., Implement authentication middleware]
+### 1. [Imperative Task Title, e.g., Implement authentication middleware]
 
 - **Prerequisites / Dependencies:** [e.g., None, or "Task 2 in this plan" — include any deferred-test dependency here]
 - **Affected Files:**
@@ -70,7 +68,7 @@ Quick links to the inputs behind this plan — the root artifact doubles as the 
   - [ ] [Observable outcome, e.g., Middleware returns 401 Unauthorized for invalid tokens]
   - [ ] [Observable outcome, e.g., Middleware attaches the user object to the request context]
 
-<!-- Repeat the `####` task block for each further task in this increment; add further `### Increment N` sections, one per commit. -->
+<!-- Repeat the `###` task block for each further task. -->
 
 ---
 
