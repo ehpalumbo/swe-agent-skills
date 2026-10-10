@@ -1,6 +1,6 @@
 ---
 name: implementation-planning
-description: Translates approved requirements, specifications, or prior analysis into an implementation plan — tasks with affected files and symbols, tests paired with the code they verify, and testable acceptance criteria. Produces a single report for one increment, or an index linking one document per increment otherwise. Use after the solution design/approach is defined; not for impact analysis or for writing the code itself.
+description: Translate approved requirements, specifications, or prior analysis documentation into implementation plan artifacts. Produces a single report for one increment, or an index linking one document per increment otherwise. Use after the solution design/approach is defined; not for impact analysis or for writing the code itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
