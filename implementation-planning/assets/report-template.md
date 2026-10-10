@@ -14,8 +14,8 @@
 
 Quick links to the documents behind this plan — the root artifact doubles as the entry point for later sessions:
 
-- [Software Impact Analysis: Title](../reports/report_name.md)
-- [Supporting Document / Analysis Report Title](path/to/document_name)
+- [Software Impact Analysis: Title](path/to/analysis_report)
+- [Supporting Document / Analysis Report Title](path/to/supporting_documentation)
 
 ---
 
@@ -46,7 +46,7 @@ Quick links to the documents behind this plan — the root artifact doubles as t
 
 - **Environment Variables:** [new/modified .env variables, or "None"]
 - **Feature Flags:** [feature toggles gating the change, or "None"]
-- **External Dependencies:** [new npm/pip packages or library upgrades, or "None"]
+- **External Dependencies:** [new dependencies, packages or library upgrades, or "None"]
 
 ---
 
