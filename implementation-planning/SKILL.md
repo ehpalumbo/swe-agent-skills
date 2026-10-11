@@ -1,103 +1,84 @@
 ---
 name: implementation-planning
-description: Prepares a detailed, actionable, and phased implementation plan from software requirement specifications and codebase analysis. Use this skill after performing a software impact analysis or when provided with explicit requirements.
+description: Translate approved requirements, specifications, or prior analysis documentation into implementation plan artifacts. Produces a single report for one increment, or an index linking one document per increment otherwise. Use after the solution design/approach is defined; not for impact analysis or for writing the code itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "1.1.0"
+  version: "2.0.0"
 ---
 
 # Implementation Planning
 
-Use this skill to create a concrete, step-by-step implementation plan once a software requirement specification is defined or a software impact analysis has been completed. This ensures that coding proceeds with clear direction, minimizes integration risks, and enables incremental, reviewable commits.
+Turn approved requirements, specifications, or prior analysis into a concrete implementation plan. Every task names the files and symbols it touches, carries acceptance criteria that can be checked objectively, and pairs with the tests that verify it, so the work can be reviewed and steered one increment at a time.
 
 ---
 
 ## When to Use
 
-- **Post-Impact Analysis:** Immediately after a Software Impact Analysis is approved to translate the recommended approach into actionable tasks.
-- **Explicit Requirements Provided:** When a user provides explicit, well-defined requirements (SRS) and requests a development plan directly.
-- **Complex Feature Rollouts:** Before writing code for features that span multiple modules, layers, or require phased execution.
+- **Prior analysis or design:** after an approach is approved, to translate it into tasks.
+- **Explicit requirements:** when well-defined requirements are provided and a plan is requested directly.
+- **Multi-module changes:** before coding work that spans modules or layers, or needs a staged rollout.
+
+Not for scoping, risk assessment, or design alternatives, and not for writing the code itself.
 
 ---
 
 ## Procedure
 
-Follow these sequential steps to prepare the implementation plan:
+### 1. Lock the inputs
 
-### 1. Review Previous Analysis & Requirements
+- Adopt the approved approach in the input materials as-is; do not re-derive or renegotiate it here.
+- If the inputs contain no concrete design, propose one — rationale, architectural trade-offs, and security/performance/integration impact — and get confirmation before planning. In a non-interactive session, adopt your proposed default and record it as an assumption in the plan.
+- Extract scope, success criteria, and constraints.
+- Scan the inputs for open items or any pending decision, doubt, or ambiguity that would change scope, tasks, or acceptance criteria. Every scope-affecting open item is blocking: ask the user to resolve it before planning, giving each question a proposed default. In a non-interactive session, adopt your proposed defaults and record each as an assumption in the plan.
 
-- Review any previous Software Impact Analysis or requirements documents.
-- Understand the scope, success criteria, and given constraints (e.g., performance, security, technology stack).
+### 2. Verify the current codebase state
 
-### 2. Verify Current Codebase State
+- Re-verify on disk every path and symbol carried over from the requirements, specification, or prior analysis — that material is a snapshot and goes stale (branch switches, concurrent edits).
+- Explore directly whatever the inputs did not cover; cite `path:line` evidence for files to be modified.
 
-- **Never guess or make assumptions** about the current state of the codebase.
-- Explore the codebase if not already thoroughly done in the previous analysis phase. Verify directory structures, configuration files, APIs, database models, and existing components to confirm alignment with your proposed changes.
+### 3. Size the plan
 
-### 3. Clarify Uncertainties
+Default to a **single report** covering all tasks when the work fits in one reviewable commit — one review at the end is enough. Split into multiple increments (an index file linking one file per increment) when intermediate user review could help prevent rework: the work has multiple independently verifiable milestones, or a wrong direction taken early would be expensive to undo. Each increment is one user checkpoint — implement it, review it, steer before the next begins — and each increment file must stand alone enough to hand to an agent with only its Overview for context. When unsure, stay single-report.
 
-- Identify any ambiguities, conflicting requirements, or gaps in information.
-- Formulate clear questions to clarify these items with the user. Propose concrete options/alternatives when asking, but always allow the user to provide custom text input.
+### 4. Slice into increments
 
-### 4. Confirm Architecture & Solution Design
+- Prefer **vertical slices** (an end-to-end flow for a subset of the requirements) when applicable; then split by deliverable component.
+- One increment = one reviewable commit = one user checkpoint. Group the tasks of each commit under one increment; split a task that is too large to review on its own, and never group two separately reviewable commits into one increment.
+- Give each increment work the user can evaluate on its own — working behavior or an inspectable foundation later increments build on.
 
-- **Propose Solution Design if Missing:** If the input documents (such as requirements or impact analysis) do not include a concrete direction for the solution design:
-  - Actively formulate and propose a solution design based on all available codebase information, requirements, and constraints.
-  - Explain the architectural rationale, highlighting any trade-offs made or alternative designs considered.
-  - Address performance, security, scaling, and integration impacts of the proposed design.
-- **Get User Approval:** Propose the design/approach clearly and **stop to ask the user to confirm it** before proceeding to write the detailed implementation plan.
+### 5. Write the plan
 
-### 5. Evaluate Phasing & Slicing
-
-- Assess whether the implementation can be divided into smaller, reviewable increments.
-- Aim for **phased implementation plans** to produce small, cohesive increments, ideally where each phase can be delivered as a single commit.
-- **Tests Are Part of Every Increment:** Each increment (task or phase) must include writing or updating its tests. Schedule tests as early as possible — a test should only be deferred if it genuinely cannot run until later changes land (e.g., some end-to-end or integration tests). Do not batch test writing into a final phase.
-- **First Define Vertical Slices:** Start by defining vertical slices of functionality (e.g., end-to-end flow for a subset of requirements); if vertical slices are not feasible, consider splitting by deliverable component.
-- **Then Split by Deliverable Component:** Further split tasks by deliverable component (e.g., API service, user interface). Use this only as a secondary strategy when vertical slices are not feasible.
-- **Phasing Structure:**
-  - If phasing is needed: Create a main plan file acting as an index with succinct descriptions of each phase and links to the phase files. Each phase must go in a separate file.
-    - **Per-Phase Overview:** Each phase plan file must include an **Overview** section at the very top. This section provides minimal context to place the phase's work in the big picture (e.g., what the phase accomplishes, how it connects to the overall feature, and which subsequent phases or components it prepares).
-  - If the changes are simple and self-contained: Do not phase; document all tasks in a single plan file.
-
-### 6. Write Implementation Tasks
-
-- Define the specific tasks required to complete the implementation.
-- Use **imperative titles** (e.g., "Create database migration for user table").
-- Specify the **affected components and files** (including exact paths where possible).
-- Reference **code symbols** (classes, methods, interfaces, schemas) when applicable.
-- Include a concise description of the implementation details.
-- Provide clear, testable **Acceptance Criteria** for each task.
-- **Plan Tests Alongside Code:** Write or update tests as an explicit, early task in the plan, not a final step. In the task list, pair each feature/change task with the test task that verifies it (or include test updates directly within the same task). Only push tests later when they unavoidably depend on changes introduced by a subsequent step — for example, unit tests for a new module can run immediately, while full integration/E2E tests may need the module wired end-to-end first. Call out such dependencies explicitly in the task's **Prerequisites / Dependencies**.
+- Give every task an imperative title, affected modules and files by exact path, and affected symbols by name.
+- Pair each implementation task with the task that tests it — same increment, same task when possible. Defer a test only when it cannot run until later changes land (e.g., E2E needing the full flow wired up), and state that dependency in **Prerequisites / Dependencies**.
+- Write acceptance criteria as checkbox items naming observable outcomes (`returns 401 for invalid tokens`), never "works correctly" or "handles errors".
 
 ---
 
 ## Output Format
 
-The final deliverable of this skill is an Implementation Plan (or an index plan linking to individual phase plans).
+The deliverable is an implementation plan: a single report file for single-increment work, or an index file linking one file per increment for multi-increment work.
 
 ### Template
 
-Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final deliverable**, then fill it in as described below:
+Load the report template from [`assets/report-template.md`](assets/report-template.md) for the single report (or index), and [`assets/increment-template.md`](assets/increment-template.md) for each increment file in multi-increment plans — **only when you are ready to write the deliverable**. Fill them in as follows:
 
-1. Fill out all sections of the template based on the requirements and codebase verification.
-2. If phasing is used, create separate markdown files for each phase. Each phase file should follow this structure:
-   - **Overview:** A concise section at the top providing minimal context to place the phase work in the big picture (e.g., how it integrates, what it unlocks, and the overall goals of this phase).
-   - **Task Details:** The specific tasks scheduled for this phase, using the same task format as the main template (imperative title, affected files/symbols, description, and acceptance criteria). Include the test-writing/update tasks in the phase with the code they verify — never defer all tests to a later phase.
-   - **Verification Plan:** Step-by-step instructions for verifying this phase's incremental changes.
-3. Save the plan(s) or present them to the user for final approval.
+1. Single-increment plans: fill the report template as one self-contained report — keep its **Task Details** with all tasks (tests included) and its **Verification Plan**; delete the **Increment Index**.
+2. Multi-increment plans: use the report template as the index — keep the **Increment Index** and move all tasks into per-increment files; delete the report's **Task Details** section. Increment files each open with an **Overview** that places the increment in the big picture and states what the user should check before approving the next increment, followed by the increment's tasks (tests included) and an increment-level **Verification Plan** that is the checkpoint review.
+3. Omit inapplicable sections instead of filling them with placeholder text.
+4. Save the plan where the user asks; otherwise alongside the source requirements, specification, or prior analysis, or under `docs/implementation-plans/<feature>/` when there is no adjacent convention.
 
 ### Self-Check (before delivering)
 
-Before presenting the plan:
+Run this checklist once, fix what fails, and repeat until it passes:
 
-- Verify that every affected file and code symbol listed per task actually resolves on disk in the current codebase. Re-check any path or symbol that was assumed rather than confirmed.
-- Verify each acceptance criterion is objectively testable — it names a specific, observable outcome (e.g., "returns 401 for invalid tokens") rather than vague wording ("works correctly", "handles errors").
-- Verify each phase corresponds to a single reviewable commit; if a task is too large to review independently, split it.
-- Confirm the phase index links (if used) reference real plan files with valid relative paths and that each phase file has an `Overview` section at the top.
-- Verify the tests are planned as early as possible: every feature/change task has its test task in the same or an earlier phase, unless that test genuinely requires later changes. Flag and justify any test that is deferred to the end of the plan.
-
-Fix any issues and repeat until the plan passes all checks before finalizing.
+- [ ] Every affected path resolves on disk; every symbol was confirmed by reading its definition or callers — none inferred from its name.
+- [ ] Every acceptance criterion names a specific, observable outcome.
+- [ ] Every increment is a single reviewable commit and a single user checkpoint.
+- [ ] Every feature task has its test task in the same or an earlier increment, or an explicitly justified deferral.
+- [ ] Single-increment plans: the single report carries **Task Details** and its own **Verification Plan**; no **Increment Index** remains.
+- [ ] Multi-increment plans: the index links resolve to real relative paths, and each increment file opens with an `Overview` section and carries its own **Verification Plan** runnable without later increments' changes.
+- [ ] No unfilled template placeholders remain; inapplicable sections were removed, not stubbed.
 
 ---
 
@@ -105,7 +86,6 @@ Fix any issues and repeat until the plan passes all checks before finalizing.
 
 Agent corrections worth remembering on every run:
 
-- **Never guess the current state of the codebase.** If symbol or file references were verified in the impact-analysis phase, do not assume they are still valid — confirm affected paths exist on disk before baking them into the plan.
-- **Acceptance criteria must be objectively testable.** Replace vague wording ("works correctly", "handles errors") with specific observable outcomes.
-- **A single phase should correspond to a single reviewable commit.** If a task is too large to review independently, split it rather than merging giant, monolithic phases.
-- **Write tests as early as possible.** Never schedule all test writing at the end of the plan. Defer a test only when it requires changes that land later (e.g., integration/E2E tests that need the full flow wired up); state that dependency explicitly in the affected task. A plan that leaves testing to a final phase has failed review.
+- **Input materials are snapshots, not ground truth.** Paths and symbols verified during prior analysis can be stale by planning time — reconfirm them on disk before they become tasks.
+- **Layer-by-layer slicing is a smell.** "Backend, then frontend, then tests" produces increments nobody can verify alone; slice vertically and split by component only when vertical is not feasible.
+- **Tests travel with their code.** An increment whose diff does not include the tests that verify it is the wrong increment; the only exception is a test that needs a later increment, and that dependency belongs in the task's prerequisites.
