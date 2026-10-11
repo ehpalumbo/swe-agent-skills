@@ -29,7 +29,8 @@ Not for scoping, risk assessment, or design alternatives, and not for writing th
 
 - Adopt the approved approach in the input materials as-is; do not re-derive or renegotiate it here.
 - If the inputs contain no concrete design, propose one — rationale, architectural trade-offs, and security/performance/integration impact — and get confirmation before planning. In a non-interactive session, adopt your proposed default and record it as an assumption in the plan.
-- Extract scope, success criteria, and constraints. Ask the user only about ambiguities that block planning, and give each question a proposed default.
+- Extract scope, success criteria, and constraints.
+- Scan the inputs for open items or any pending decision, doubt, or ambiguity that would change scope, tasks, or acceptance criteria. Every scope-affecting open item is blocking: ask the user to resolve it before planning, giving each question a proposed default. In a non-interactive session, adopt your proposed defaults and record each as an assumption in the plan.
 
 ### 2. Verify the current codebase state
 
