@@ -77,7 +77,7 @@ Quick links to the inputs behind this plan — the root artifact doubles as the 
 
 ### Automated Tests
 
-[Unit, integration, or E2E tests to create/update, each mapped to the task it verifies]
+[Unit, integration, or E2E tests to create/update, each mapped to the task it verifies — reference tasks as "Increment N, Task K"]
 
 ### Manual Verification Steps
 

@@ -19,7 +19,7 @@ Turn approved requirements, specifications, or prior analysis into a concrete im
 - **Explicit requirements:** when well-defined requirements are provided and a plan is requested directly.
 - **Multi-module changes:** before coding work that spans modules or layers, or needs a staged rollout.
 
-Not for scoping, risk assessment, or design alternatives, and not for writing the code itself.
+Not for comparative design evaluation — propose one only when the inputs lack a concrete design (Step 1). Not for writing the code itself.
 
 ---
 
@@ -72,7 +72,7 @@ Load the report template from [`assets/report-template.md`](assets/report-templa
 
 Run this checklist once, fix what fails, and repeat until it passes:
 
-- [ ] Every affected path resolves on disk; every symbol was confirmed by reading its definition or callers — none inferred from its name.
+- [ ] Every existing affected path resolves on disk; every affected symbol was confirmed by reading its definition or callers — none inferred from its name.
 - [ ] Every acceptance criterion names a specific, observable outcome.
 - [ ] Every increment is a single reviewable commit and a single user checkpoint.
 - [ ] Every feature task has its test task in the same or an earlier increment, or an explicitly justified deferral.
