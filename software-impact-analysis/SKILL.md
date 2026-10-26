@@ -53,7 +53,7 @@ Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code 
 
 - **Tier 1 — concise:** trivial or local, with no security, auth/crypto/access-control, data-migration, or public-API-contract impact. One approach is enough; note rejected alternatives in one line.
 - **Tier 2 — full:** everything else — non-trivial, cross-cutting, API, DB, or complex bug, plus any security-sensitive, auth/crypto/access-control, or migration change regardless of size. Define at least two strategies (e.g., direct/minimal vs. robust/refactored).
-- Consider genuinely distinct approaches and solution designs rather than defaulting to the first idea that comes to mind. Prefer the robust approach in every case: one that fixes root causes, follows existing patterns, and preserves long-term maintainability and correctness. Shortcuts are never welcome and may only be weighed as alternatives when the change is trivial — never trade security, correctness, or maintainability for speed or smaller diff.
+- Consider genuinely distinct approaches and solution designs rather than defaulting to the first idea that comes to mind. Prefer the robust approach in every case: one that fixes root causes, follows existing patterns, and preserves long-term maintainability and correctness. Shortcut-style options may be listed as rejected alternatives for trivial changes only; never trade security, correctness, or maintainability for speed or a smaller diff.
 - For each approach, document:
   - High-level design and how it works.
   - Pros (simplicity, execution speed, performance, etc.).
@@ -77,7 +77,7 @@ The final deliverable of this skill must be a Software Impact Analysis Report.
 Load the report template from [`assets/report-template.md`](assets/report-template.md) **only when you are ready to write the final report**, then:
 
 1. Fill out the applicable sections of the template. Depth follows the tiers defined in step 4:
-   - **Tier 1 (concise):** Executive Summary, Affected Components, and Verification & Testing Plan are sufficient.
+   - **Tier 1 (concise):** Metadata, Executive Summary, Affected Components, Verification & Testing Plan, plus §4's decision lines (Chosen Approach, Rationale, Effort Estimate, Assumptions) — omit §4's other bullets and the remaining sections.
    - **Tier 2 (full):** the full template, including Approaches, Security/Performance, and Rollback.
    Regardless of tier, the report must carry an Effort Estimate and Assumptions — never drop them for brevity.
 2. Save the report where the user asks; otherwise save under `docs/impact-analyses/<feature-or-bug-id>.md`. Omit inapplicable subsections instead of filling with placeholders.
@@ -92,11 +92,11 @@ The report is the single source of truth for the current state of the analysis, 
 
 ### Self-Check (before delivering)
 
-Run this checklist once, fix what fails, and repeat until it passes:
+Run this checklist once before delivering; fix anything that fails before presenting.
 
-- [ ] Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column; every symbol was confirmed via caller/importer search, not inferred from its name.
+- [ ] Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column — for `[NEW]` rows, cite the insertion point in the parent file instead; every symbol was confirmed via caller/importer search, not inferred from its name.
 - [ ] Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- [ ] No unrefilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
+- [ ] No unfilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
 
 ---
 

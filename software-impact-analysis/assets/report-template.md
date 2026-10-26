@@ -80,7 +80,7 @@ Detail the specific codebase components that are expected to be modified, create
 
 | File / Component Path | Evidence (path:line) | Action | Description of Change |
 | :--- | :--- | :--- | :--- |
-| `[file/path]` | `[path/to/file.ext:42]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
+| `[file/path]` | `[path/to/file.ext:42]` (for `[NEW]` rows, cite the insertion point in the parent file) | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
 | `[file/path]` | `[path/to/file.ext:87]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
 
 ### Database & Schema Changes
