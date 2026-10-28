@@ -4,72 +4,80 @@
 
 - **Author:** [Agent Name / ID]
 - **Date:** [YYYY-MM-DD]
-- **Phased Implementation:** [Yes / No]
+- **Structure:** [Single increment / N increments]
 
-### References [Links to supporting documents / analysis reports]
-
-- e.g., [Supporting Document / Analysis Report Title](path/to/document_name)
+<!-- Omit inapplicable sections instead of filling them with placeholder text. -->
 
 ---
 
-## Executive Summary & Architecture
+## References
 
-[Provide a summary of the proposed changes, the confirmed architecture, and any system constraints.]
+Quick links to the inputs behind this plan — the root artifact doubles as the entry point for later sessions:
+
+- [Requirements / specification / prior analysis: Title](path/to/source_document)
+- [Supporting document: Title](path/to/supporting_documentation)
 
 ---
 
-<!-- If Phased Implementation is Yes, include the Phase Index below. Otherwise, remove it. -->
-## Phase Index
+## Executive Summary
 
-- **[Phase 1: Title]** - [Succinct description] - [Link to phase_1.md](phases/phase_1_plan.md)
-- **[Phase 2: Title]** - [Succinct description] - [Link to phase_2.md](phases/phase_2_plan.md)
+[Summary of the proposed changes and the confirmed approach.]
+
+### Architecture
+
+[Optional. Key structural decisions, components touched, and system constraints.]
+
+### Assumptions
+
+[Optional. Decisions adopted without user confirmation — e.g., proposed defaults taken during a non-interactive session.]
+
+---
+
+<!-- When single increment: delete the Increment Index below and keep Task Details. When multi-increment: keep the Increment Index and move all tasks into per-increment files (see increment-template.md); delete the Task Details section below. -->
+
+## Increment Index
+
+- **[Increment 1: Title]** - [one-line outcome] - [increment_1_plan.md](increments/increment_1_plan.md)
+- **[Increment 2: Title]** - [one-line outcome] - [increment_2_plan.md](increments/increment_2_plan.md)
 
 ---
 
 ## Configuration & Environment Updates
 
-- **Environment Variables:** [State new/modified .env variables, e.g., API_KEY, DB_PASSWORD. If none, write "None".]
-- **Feature Flags:** [State if any feature toggles are required to gate the changes. If none, write "None".]
-- **External Dependencies:** [List any new npm packages, pip packages, or library upgrades needed. If none, write "None".]
+<!-- Omit this section or any item with nothing to report; never write "None". -->
+
+- **Environment Variables:** [new/modified .env variables]
+- **Feature Flags:** [feature toggles gating the change]
+- **External Dependencies:** [new dependencies, packages or library upgrades]
 
 ---
 
 ## Task Details
-<!-- If Phased, this section is represented in each phase's separate file. If Not Phased, list the tasks here. -->
 
-### [Component / Layer Name, e.g., Database, Backend, Frontend]
+<!-- Single-increment plans: keep this section with all tasks below. Multi-increment plans: delete this section and move all tasks into per-increment files (see increment-template.md). -->
 
-#### 1. [Imperative Task Title, e.g., Implement authentication middleware]
+### 1. [Imperative Task Title, e.g., Implement authentication middleware]
 
-- **Prerequisites / Dependencies:** [e.g., None, or "Database migration in Task X"]
+- **Prerequisites / Dependencies:** [e.g., None, or "Task 2 in this plan" — include any deferred-test dependency here]
 - **Affected Files:**
-  - [file_basename](relative/path/to/affected_file)
+  - [file_basename](relative/path/to/affected_file) - [NEW / MODIFY]
 - **Affected Symbols:**
-  - `ClassName` or `method_name` or `database_table`
+  - `ClassName` / `method_name()` / `database_table`
 - **Description:** [Concise description of what to do and how to implement it.]
 - **Acceptance Criteria:**
-  - [ ] [Criterion 1, e.g., Middleware returns 401 Unauthorized for invalid tokens]
-- [ ] [Criterion 2, e.g., Middleware attaches user object to request context]
+  - [ ] [Observable outcome, e.g., Middleware returns 401 Unauthorized for invalid tokens]
+  - [ ] [Observable outcome, e.g., Middleware attaches the user object to the request context]
 
-#### 2. [Imperative Task Title]
-
-- **Prerequisites / Dependencies:** [e.g., None]
-- **Affected Files:**
-  - [file_basename](relative/file/path)
-- **Affected Symbols:**
-  - `SymbolName`
-- **Description:** [Concise description of what to do and how to implement it.]
-- **Acceptance Criteria:**
-  - [ ] [Criterion 1]
+<!-- Repeat the `###` task block for each further task. -->
 
 ---
 
-## Verification Plan (Whole Feature Verification)
-<!-- Note: This verification plan is for checking the whole feature. Every individual task in the plan must also be verified by checking that it meets its specific acceptance criteria. -->
+## Verification Plan (Whole Feature)
+<!-- This plan covers the whole feature. Every individual task is also verified against its own acceptance criteria. -->
 
 ### Automated Tests
 
-[Describe unit, integration, or E2E tests to create/update]
+[Unit, integration, or E2E tests to create/update, each mapped to the task it verifies — reference tasks as "Increment N, Task K"]
 
 ### Manual Verification Steps
 
