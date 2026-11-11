@@ -1,10 +1,10 @@
 ---
 name: software-impact-analysis
-description: Conduct a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — map affected components with evidence, elicit open decisions with proposed defaults, and recommend an approach with a verification plan. Also suited for revisiting and rewriting a prior analysis when decisions are challenged or scope changes. Not for greenfield scaffolding and not for planning the implementation itself.
+description: Conduct a pre-code impact analysis for a feature, bug fix, or refactoring in an existing codebase — map affected components with their architectural impact, elicit open decisions with proposed defaults, and recommend an approach with a verification plan. Also suited for revisiting and rewriting a prior analysis when decisions are challenged or scope changes. Not for greenfield scaffolding and not for planning the implementation itself.
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Software Impact Analysis
@@ -35,8 +35,8 @@ Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code 
 ### 2. Evidence-Grounded Exploration
 
 - Explore in parallel: entry points, related logic, callers/importers, configs, docs/schemas, and covering tests. Use subagents for independent areas such as separate subsystems.
-- Trace the execution path: entry point → modules/APIs/data flows → side effects. Record `path:line` evidence per affected component (Evidence column of the report's Affected Components table); do not declare scope isolated without caller/importer check.
-- Produce the affected-components set directly (files, packages, tables, APIs + local vs. global scope + regression risks). Reuse existing patterns/helpers where found.
+- Trace the execution path: entry point → modules/APIs/data flows → side effects. Map affected components and most relevant symbols (classes, methods, functions, interfaces, types), and their logical locations (module, package). Focus on architectural impact, boundaries, and blast radius; do not declare scope isolated without caller/importer check.
+- Produce the affected-components set directly (modules, symbols, locations, APIs, tables + architectural role/impact + regression risks). Reuse existing patterns/helpers where found.
 - Check git history (`log`, `blame`, recent PRs) for churn and hotspots in affected areas to calibrate risk.
 - Ground bug fixes in execution: reproduce with a script/logs before proposing a fix. If the bug cannot be reproduced in the current environment, record the attempted repro steps, the blocker, and proceed at reduced confidence rather than skipping verification. Note existing tests covering affected areas and coverage gaps.
 - Stop when the affected set stabilizes (no new callers/importers) or scope is clearly bounded.
@@ -64,7 +64,7 @@ Follow steps 1–5, but treat steps 2–3 as a loop: explore, ask what the code 
 
 - Select the best approach with technical rationale (trade-offs, scalability, maintenance).
 - Outline the high-level execution sequence only. Planning how to implement it (phased tasks, task breakdown) is out of scope here — leave it to the user's preferred planning approach; do not write detailed tasks here.
-- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, 1–2 files/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record all of this in the report's Recommended Way Forward section.
+- State effort estimate as t-shirt size based on complexity, not time (S = low complexity, few symbols/single component, covered by existing tests; M = medium complexity, multiple components, new tests + regression coverage needed; L = high complexity, cross-cutting/architectural, migration or contract changes, extensive testing/rollout care) and rollback/migration needs if applicable; record all of this in the report's Recommended Way Forward section.
 
 ---
 
@@ -88,15 +88,15 @@ The report is the single source of truth for the current state of the analysis, 
 
 - Re-run the procedure from step 1 and rewrite the report as needed. The delivered report must read as a standalone analysis; superseded content is deleted and replaced. A reader should never have to reconstruct which parts are still valid.
 - Do not turn the report into a changelog: no struck-through text, no "Updated:" / "Previously assumed…" notes, no revision history sections. Where a decision changed, state only the new decision and its rationale.
-- Carry forward only findings and decisions that survive re-verification. Re-check evidence with fresh `path:line` lookups rather than trusting the prior report's citations.
+- Carry forward only findings and decisions that survive re-verification. Re-verify affected symbols, component locations, and architectural contracts on disk rather than trusting the prior report's citations.
 
 ### Self-Check (before delivering)
 
 Run this checklist once before delivering; fix anything that fails before presenting.
 
-- [ ] Every affected file cites a verified `path:line` on disk in the Affected Components table's Evidence column — for `[NEW]` rows, cite the insertion point in the parent file instead; every symbol was confirmed via caller/importer search, not inferred from its name.
+- [ ] Every affected component references concrete symbols and logical locations (module, package, or file) without unnecessary edit instructions; architectural impact, caller blast radius, and contract changes are clearly documented; every symbol was confirmed via caller/importer search, not inferred from its name.
 - [ ] Every "Remaining Open Question" is genuinely unanswerable from code/search — if resolvable, resolve it instead of deferring it.
-- [ ] No unfilled template placeholders (e.g. `[file/path]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
+- [ ] No unfilled template placeholders (e.g. `[Component / Symbol]`, `[module/package/location]`, `TBD`) remain; omitted subsections are intentional per the step-4 tiers, not incomplete work.
 
 ---
 
@@ -106,3 +106,4 @@ Agent corrections worth remembering on every run:
 
 - **Trusting symbol names is not enough.** A function may be called from many places — always hunt down its callers before declaring a change isolated.
 - **A shared/module-level util can ripple across multiple features.** Check all importers, not just the one named in the request.
+- **Avoid line-number and micro-implementation rabbit holes.** Agents can easily scan code when pointed to symbols and locations. Focus on architectural impact, interface contracts, and system boundaries.
