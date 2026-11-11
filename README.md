@@ -15,7 +15,7 @@ These skills have been iteratively improved with learnings from daily use in a p
 
 ### [Software Impact Analysis](./software-impact-analysis/SKILL.md)
 
-* **Purpose:** Pre-code analysis to evaluate requirements, map affected files/symbols, assess side effects, and propose technical design options.
+* **Purpose:** Pre-code analysis to evaluate requirements, map affected components/symbols and architectural impact, assess side effects, and propose technical design options.
 * **When to use:** Use before implementing any feature request, bug fix, or refactoring.
 * **Interaction model:** Deliberately interactive — the analysis asks clarifying questions with proposed defaults as it goes, rather than deferring all open decisions to the end.
 * **Output:** A structured impact analysis report — scaled to the risk tier (Tier 1 concise or Tier 2 full), from a concise summary of affected components to a full report with pros/cons of proposed approaches, regression risks, and open questions.

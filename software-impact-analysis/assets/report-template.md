@@ -28,7 +28,7 @@
 
 ## 2. Context & Findings
 
-[Describe the problem statement providing sufficient background information for readers to understand the proposal. Summarize what was discovered during codebase exploration, documentation review, or external spec analysis. Note any existing patterns, helper modules, or libraries that should be reused. Include references to any material used during the analysis.]
+[Describe the problem statement providing sufficient background information for readers to understand the proposal. Summarize what was discovered during codebase exploration, documentation review, or external spec analysis. Outline the current architectural context, relevant module boundaries, and any existing patterns, helper modules, or libraries that should be reused. Include references to any material used during the analysis.]
 
 ---
 
@@ -38,23 +38,23 @@ Evaluate the possible approaches to address the feature request or bug fix.
 
 ### Approach A: [Name of Approach A, e.g., Direct Implementation]
 
-- **Description:** [How it works]
+- **Description:** [High-level architectural design and how it works]
 - **Pros:**
   - [Pro 1]
   - [Pro 2]
 - **Cons:**
   - [Con 1]
   - [Con 2]
-- **Risk Level & Complexity:** [Low / Medium / High - explain why]
+- **Risk Level & Complexity:** [Low / Medium / High - explain architectural risk and complexity]
 
 ### Approach B: [Name of Approach B, e.g., Refactoring First] (If applicable)
 
-- **Description:** [How it works]
+- **Description:** [High-level architectural design and how it works]
 - **Pros:**
   - [Pro 1]
 - **Cons:**
   - [Con 1]
-- **Risk Level & Complexity:** [Low / Medium / High - explain why]
+- **Risk Level & Complexity:** [Low / Medium / High - explain architectural risk and complexity]
 
 ---
 
@@ -76,12 +76,16 @@ Evaluate the possible approaches to address the feature request or bug fix.
 
 ## 5. Affected Components
 
-Detail the specific codebase components that are expected to be modified, created, or deleted.
+Detail the specific codebase components, modules, and symbols affected by the proposed change. Focus on the impact from an architectural standpoint (contracts, responsibilities, callers, and data flow) rather than exact line numbers or line-level diff instructions.
 
-| File / Component Path | Evidence (path:line) | Action | Description of Change |
+| Component | Location | Action | Architectural Impact |
 | :--- | :--- | :--- | :--- |
-| `[file/path]` | `[path/to/file.ext:42]` (for `[NEW]` rows, cite the insertion point in the parent file) | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
-| `[file/path]` | `[path/to/file.ext:87]` | [NEW / MODIFY / DELETE] | [Brief description of what changes] |
+| `[Component / Symbol]` | `[module/package/location]` | [NEW / MODIFY / DELETE] | [Architectural role, contract/responsibility changes, callers affected, or side effects] |
+| `[Component / Symbol]` | `[module/package/location]` | [NEW / MODIFY / DELETE] | [Architectural role, contract/responsibility changes, callers affected, or side effects] |
+
+### Architectural & Component Interactions
+
+- [Describe how the change affects module boundaries, interactions between components, or data flow across layers. Note any new coupling or decoupled dependencies. If trivial, keep concise or omit.]
 
 ### Database & Schema Changes
 
