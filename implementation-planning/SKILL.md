@@ -4,7 +4,7 @@ description: Translate approved requirements, specifications, or prior analysis 
 license: Apache-2.0
 metadata:
   author: ehpalumbo
-  version: "2.0.0"
+  version: "2.1.0"
 ---
 
 # Implementation Planning
@@ -35,7 +35,7 @@ Not for comparative design evaluation — propose one only when the inputs lack 
 ### 2. Verify the current codebase state
 
 - Re-verify on disk every path and symbol carried over from the requirements, specification, or prior analysis — that material is a snapshot and goes stale (branch switches, concurrent edits).
-- Explore directly whatever the inputs did not cover; cite `path:line` evidence for files to be modified.
+- Explore directly whatever the inputs did not cover to identify the concrete files and symbols to be created or modified.
 
 ### 3. Size the plan
 
@@ -49,7 +49,7 @@ Default to a **single report** covering all tasks when the work fits in one revi
 
 ### 5. Write the plan
 
-- Give every task an imperative title, affected modules and files by exact path, and affected symbols by name.
+- Give every task an imperative title, affected modules and files by exact path, and affected symbols by name (omit line numbers and speculative diffs; symbols and paths provide sufficient context).
 - Pair each implementation task with the task that tests it — same increment, same task when possible. Defer a test only when it cannot run until later changes land (e.g., E2E needing the full flow wired up), and state that dependency in **Prerequisites / Dependencies**.
 - Write acceptance criteria as checkbox items naming observable outcomes (`returns 401 for invalid tokens`), never "works correctly" or "handles errors".
 
@@ -89,3 +89,4 @@ Agent corrections worth remembering on every run:
 - **Input materials are snapshots, not ground truth.** Paths and symbols verified during prior analysis can be stale by planning time — reconfirm them on disk before they become tasks.
 - **Layer-by-layer slicing is a smell.** "Backend, then frontend, then tests" produces increments nobody can verify alone; slice vertically and split by component only when vertical is not feasible.
 - **Tests travel with their code.** An increment whose diff does not include the tests that verify it is the wrong increment; the only exception is a test that needs a later increment, and that dependency belongs in the task's prerequisites.
+- **Avoid line-number and micro-implementation micromanagement.** Coding agents locate context cleanly from file paths and symbol names. Keep exact line numbers and speculative code diffs out of task descriptions; focus on target symbols, dependencies, and observable acceptance criteria.
